@@ -46,7 +46,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                       textAlign: TextAlign.start,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
-                          suffixIcon:Icon(Icons.qr_code_scanner_outlined,color: Colors.grey,size: 28,),
+                          suffixIcon:Icon(Icons.camera_enhance_outlined,color: Colors.grey,size: 28,),
                         prefixIcon:Icon(Icons.search,color: Colors.grey,size: 32,),
                         hintText: "Search in Amazon.in",
                         hintStyle: TextStyle(color: Colors.black54,fontWeight: FontWeight.w500,fontSize: 18)
@@ -64,7 +64,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
         scrollDirection: Axis.vertical,
         child: Column(
           children:  [
-            const AddressBox(),
+             addressBox(),
             const TopAccessories(),
             const TopDeals(),
             const DealOfTheDay(),

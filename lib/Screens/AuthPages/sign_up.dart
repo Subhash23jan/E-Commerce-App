@@ -177,7 +177,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     InkWell(
                         onTap: () {
-                          print("clicked");
+                          if (kDebugMode) {
+                            print("clicked");
+                          }
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const SignInPage(),
                           ));
