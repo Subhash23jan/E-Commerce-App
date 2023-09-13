@@ -6,7 +6,7 @@ class UserModel {
   final String email;
   final String password;
   final String address;
-  final String type;
+  final String userType;
 
   UserModel({
     required this.id,
@@ -14,7 +14,7 @@ class UserModel {
     required this.email,
     required this.password,
     required this.address,
-    required this.type,
+    required this.userType,
   });
 
   // Serialization: Convert User object to a map
@@ -25,7 +25,7 @@ class UserModel {
       'email': email,
       'password': password,
       'address': address,
-      'type': type,
+      'userType': userType,
     };
   }
 
@@ -37,7 +37,7 @@ class UserModel {
       email: json['email'],
       password: json['password'],
       address: json['address'],
-      type: json['type'],
+      userType: json['userType'],
     );
   }
   // String toJson() => json.encode(toMap());

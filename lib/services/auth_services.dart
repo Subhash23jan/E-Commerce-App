@@ -1,4 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
+import 'package:amazon_clone_flutter/main.dart';
 import 'package:amazon_clone_flutter/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,13 +10,10 @@ import 'package:amazon_clone_flutter/constants/error_handling.dart';
 import 'package:amazon_clone_flutter/constants/global_variables.dart';
 import 'package:amazon_clone_flutter/constants/utils.dart';
 import 'package:amazon_clone_flutter/models/user_model.dart';
-import 'package:amazon_clone_flutter/pages/homeScreen/screens/home_screen_page.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-
   void signUpUser({
     required BuildContext context,
     required String name,
@@ -26,12 +24,12 @@ class AuthService {
     print('stage2');
     try {
       UserModel user = UserModel(
-          id: '123',
+          id: '',
           name: name,
           email: email,
           password: password,
           address: '',
-          type: 'user');
+          userType: 'user');
       http.Response res = await http.post(
         Uri.parse('$uri/api/signup'),
         body: user.toJson(),
@@ -81,13 +79,27 @@ class AuthService {
             showSnackBar('login successfully', context);
             await prefs.setString("email", email);
             await prefs.setString("password", password);
-            Provider.of<UserProvider>(context, listen: false).setUser(response.body);
+            Provider.of<UserProvider>(context, listen: false)
+                .setUser(response.body);
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const HomepageScreen(),
+              builder: (context) => const HomePage(),
             ));
           });
     } catch (e) {
       showSnackBar(e.toString(), context);
     }
   }
+
+  // Future<UserModel> getUserData({
+  //   required context,
+  //   required email,
+  // }) async {
+  //   return UserModel(
+  //       id: id,
+  //       name: name,
+  //       email: email,
+  //       password: password,
+  //       address: address,
+  //       type: type);
+  // }
 }
