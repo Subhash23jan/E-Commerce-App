@@ -21,12 +21,12 @@ class _UserProfileState extends State<UserProfile> {
    late final UserModel _user;
    @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _user=Provider.of<UserProvider>(context).user;
+
   }
   @override
   Widget build(BuildContext context) {
+    _user=Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),

@@ -59,7 +59,7 @@ adminRouter.post('/api/admin/add-product', async (req, res) => {
     });
 });
 
-userRouter.post('/api/admin/update/password', async (req, res) => {
+adminRouter.post('/api/admin/update/password', async (req, res) => {
     try {
         const user = await User.findOneAndUpdate(
             {
