@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           platform: TargetPlatform.android,
           hintColor: Colors.white70,
         ),
-        home:const Sample(),
+        home:const HomePage(),
         debugShowCheckedModeBanner: false,
       ),
     );
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
     _pagecontroller=PageController();
     return Scaffold(
       body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
+        allowImplicitScrolling: true,
         controller: _pagecontroller,
         children: const [
           HomepageScreen(),
