@@ -3,12 +3,18 @@ const productSchema = require("./product");
 const userSchema = require("./user");
 
 const orderSchema = mongoose.Schema({
-    customer: userSchema,
-    product: productSchema,
-    quantity: {
-        required: true,
-        type: Number,
-    },
+    Items: [
+        {
+            productId: {
+                type: String,
+                required:true,
+            },
+            quantity: {
+                type: Number,
+                default:1,
+            }
+        }
+    ],
     date: {
         type: Date,
         default: Date.now, 

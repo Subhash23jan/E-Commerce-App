@@ -29,9 +29,10 @@ class AuthService {
           email: email,
           password: password,
           address: '',
+          cart: [],
           userType: 'user');
       http.Response res = await http.post(
-        Uri.parse('$uri/api/signup'),
+        Uri.parse('$uri/api/user/signup'),
         body: user.toJson(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -62,7 +63,7 @@ class AuthService {
     try {
       print('stage2');
       http.Response response = await http.post(
-        Uri.parse('$uri/api/signin'),
+        Uri.parse('$uri/api/user/signin'),
         body: jsonEncode({
           'email': email,
           'password': password,
@@ -76,16 +77,19 @@ class AuthService {
           res: response,
           context: context,
           onSuccess: () async {
+            print("staage 4");
             showSnackBar('login successfully', context);
             await prefs.setString("email", email);
             await prefs.setString("password", password);
             Provider.of<UserProvider>(context, listen: false)
                 .setUser(response.body);
+
             Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => const HomePage(),
             ));
           });
     } catch (e) {
+      print("staage 5");
       showSnackBar(e.toString(), context);
     }
   }

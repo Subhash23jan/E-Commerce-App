@@ -38,8 +38,8 @@ userRouter.post('/api/user/update/address', async (req, res) => {
         return res.status(500).json({ msg: 'something went wrong!!' });
     }
 });
-userRouter.post('/api/user/add-cart', async (req, res) => {
-    const  { email, productId, quantity } = req.body;
+userRouter.put('/api/user/add-cart', async (req, res) => {
+    const { email, productId, quantity } = req.body;
     const parsedQuantity = parseInt(quantity);
   try {
     const user = await User.findOne({ email });
@@ -70,11 +70,81 @@ userRouter.post('/api/user/add-cart', async (req, res) => {
   }
 });
 
-userRouter.post('/api/user/cart',async(req, res) => {
+
+//to add to favourites
+userRouter.put('/api/user/add-favourite', async (req, res) => {
+    const { email, productId, quantity } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+           return res.status(400).json({ msg: 'User not found!!!' });
+        }
+        const favourites = user.favourites;
+        const index = favourites.findIndex(favouriteItem => favouriteItem.productId == productId);
+        if (index == -1)
+            favourites.push({
+                productId, quantity
+            });
+        else {
+             return res.json({ msg: 'Item is already in favourite list ...' });
+        }
+        user.favourites = favourites;
+        await user.save();
+        return res.json({ msg: 'Added to favourites...' });
+
+    } catch (e)
+    {
+        console.error(e);
+        return res.status(500).json({ msg: 'Internal Server Error' });
+    }
+});
+
+
+
+//remove from favourites
+userRouter.put("/api/user/remove-favourite", async (req, res) => {
+    const { email, productId, quantity } = req.body;
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+           return res.status(400).json({ msg: 'User not found!!!' });
+        }
+        const favourites = user.favourites;
+        const index = favourites.findIndex(favouriteItem => favouriteItem.productId == productId);
+        if (index == -1)
+           return res.json({ msg: 'Item not found ...' });
+        else {
+            favourites.splice(index, 1);
+        }
+        user.favourites = favourites;
+        await user.save();
+        return res.json({ msg: 'removed from favourites...' });
+
+    } catch (e)
+    {
+        console.error(e);
+        return res.status(500).json({ msg: 'Internal Server Error' });
+    }
+});
+
+
+//to get cart items of perticular user
+userRouter.get('/api/user/cart',async(req, res) => {
     const { email } = req.body;
     const user = await User.findOne({email});
     if (user == null)
         return res.status(500).json({ msg: 'no user exists' });
     return res.json({ cart: user.cart });
+});
+
+
+
+//to get favourites / wish-list items
+userRouter.get('/api/user/favourites', async (req, res) => {
+    const { email } = req.body;
+    const user = await User.findOne({email});
+    if (user == null)
+        return res.status(500).json({ msg: 'no user exists' });
+    return res.json({ favourites: user.favourites });
 });
 module.exports = userRouter;

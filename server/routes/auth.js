@@ -29,11 +29,11 @@ authRouter.post('/api/user/signin', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.findOne({
-            email:{$regex:email,options:"i"}
+            email: { $regex: email, $options: "i" },
         });
         console.log(email);
         if (!user) {
-             return res.status(400).json({ msg: 'User with this email does not exist !!' });
+            return res.status(400).json({ msg: 'User with this email does not exist !!' });
         }
         if (user && user.password != password) {
             return res.status(400).json({ msg: 'Incorrect password !!' }); 
