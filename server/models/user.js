@@ -35,6 +35,22 @@ const userSchema = mongoose.Schema({
                 required: true,
             }
         }
+    ],
+    favourites: [
+        {
+            productId: {
+                type: String,
+                required:true,
+            },
+        }
+    ],
+    orders: [
+        {
+            orderId: {
+                type: String,
+                required:true,
+            }
+        }
     ]
 });
 

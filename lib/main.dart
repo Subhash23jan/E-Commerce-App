@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           platform: TargetPlatform.android,
           hintColor: Colors.white70,
         ),
-        home:const HomePage(),
+        home:const Sample(),
         debugShowCheckedModeBanner: false,
       ),
     );

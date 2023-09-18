@@ -7,6 +7,7 @@ class UserModel {
   final String password;
   final String address;
   final String userType;
+  final List<dynamic> cart;
 
   UserModel({
     required this.id,
@@ -15,6 +16,7 @@ class UserModel {
     required this.password,
     required this.address,
     required this.userType,
+    required this.cart
   });
 
   // Serialization: Convert User object to a map
@@ -26,6 +28,7 @@ class UserModel {
       'password': password,
       'address': address,
       'userType': userType,
+      'cart':cart
     };
   }
 
@@ -38,6 +41,7 @@ class UserModel {
       password: json['password'],
       address: json['address'],
       userType: json['userType'],
+      cart: json['cart']
     );
   }
   // String toJson() => json.encode(toMap());

@@ -72,7 +72,7 @@ Container cartItem()
                         color: Colors.white70,
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(5),bottomLeft: Radius.circular(5))
                     ),
-                    child: const Icon(Icons.delete,color: Colors.black87,),
+                    child: const Icon(Icons.remove_rounded,color: Colors.black87,),
                   ),
                   Container(
                     width: 60,
