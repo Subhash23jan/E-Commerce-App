@@ -1,6 +1,8 @@
 const express = require("express");
 const userRouter = express.Router();
+const Order = require('../models/order');
 const User = require('../models/user');
+const { compareSync } = require("bcrypt");
 
 userRouter.post('/api/user/update/password', async (req, res) => {
 
@@ -147,4 +149,49 @@ userRouter.get('/api/user/favourites', async (req, res) => {
         return res.status(500).json({ msg: 'no user exists' });
     return res.json({ favourites: user.favourites });
 });
+
+//to place order
+userRouter.post('/api/user/order-checkout', async (req, res) => {
+    const { email, products } = req.body;
+    
+    const order = new Order(
+       { products:products}
+    );
+    const result=await order.save();
+    if (result != null) {
+        User.findOne({email}).then((user) => {
+            if (user == null) {
+                return res.status(404).json({ msg: 'No user exists!!??' });
+            }
+            //console.log(order._id);
+            user.orders.push({"orderId": order._id });
+            console.log(user.orders);
+            return user.save();
+        }).then(() => {
+             return res.json({ msg: 'order placed successfully!!!!' });
+        }).catch((err) => {
+            console.error(err);
+            return res.status(404).json({ msg: 'Something went wrong' });
+        });
+    }
+});
+//to get order history
+userRouter.get('/api/user/order-history', async (req, res) => {
+    const { email } = req.body;
+    const user = await User.findOne({email});
+    if (user == null)
+        return res.status(500).json({ msg: 'no user exists' });
+    return res.json({ orders: user.orders });
+    
+});
+
+userRouter.get('/api/user/order/:id', async(req, res) => {
+    const orderId = req.params.id;
+    const order = await Order.findOne({ _id: orderId });
+    if (order == null)
+        return res.status(500).json({ msg: 'no orders exists' });
+
+    return res.json({order:order });
+});
+
 module.exports = userRouter;
