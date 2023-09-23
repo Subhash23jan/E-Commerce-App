@@ -165,7 +165,7 @@ userRouter.post('/api/user/order-checkout', async (req, res) => {
             }
             //console.log(order._id);
             user.orders.push({"orderId": order._id });
-            console.log(user.orders);
+            //console.log(user.orders);
             return user.save();
         }).then(() => {
              return res.json({ msg: 'order placed successfully!!!!' });
