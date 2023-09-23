@@ -33,7 +33,8 @@ const userSchema = mongoose.Schema({
             quantity: {
                 type: Number,
                 required: true,
-            }
+            },
+            _id:false,
         }
     ],
     favourites: [
@@ -42,6 +43,7 @@ const userSchema = mongoose.Schema({
                 type: String,
                 required:true,
             },
+            _id:false,
         }
     ],
     orders: [
@@ -49,7 +51,8 @@ const userSchema = mongoose.Schema({
             orderId: {
                 type: String,
                 required:true,
-            }
+            },
+            _id:false,
         }
     ]
 });
