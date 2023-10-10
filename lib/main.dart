@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: PageView(
         allowImplicitScrolling: true,
+        physics: const NeverScrollableScrollPhysics(),
         controller: _pagecontroller,
         children: const [
           HomepageScreen(),

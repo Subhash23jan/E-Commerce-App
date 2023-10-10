@@ -1,14 +1,14 @@
 import 'package:amazon_clone_flutter/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-class Product extends StatefulWidget {
-  const Product({super.key});
+class CartProduct extends StatefulWidget {
+  const CartProduct({super.key});
 
   @override
-  State<Product> createState() => _ProductState();
+  State<CartProduct> createState() => _CartProductState();
 }
 
-class _ProductState extends State<Product> {
+class _CartProductState extends State<CartProduct> {
   @override
   Widget build(BuildContext context) {
     return Container(

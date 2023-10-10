@@ -70,9 +70,9 @@ class _AllProductsState extends State<AllProducts> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        Product(),
-                        Product(),
-                        Product(),
+                        CartProduct(),
+                        CartProduct(),
+                        CartProduct(),
                       ],
                     ),
                   ),
@@ -86,8 +86,8 @@ class _AllProductsState extends State<AllProducts> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        Product(),
-                        Product(),
+                        CartProduct(),
+                        CartProduct(),
                       ],
                     ),
                   ),
@@ -101,8 +101,8 @@ class _AllProductsState extends State<AllProducts> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        Product(),
-                        Product(),
+                        CartProduct(),
+                        CartProduct(),
                       ],
                     ),
                   ),
