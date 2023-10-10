@@ -8,7 +8,7 @@ const Product = require('../models/product');
 
 //to get perticular product
 productRouter.get('/api/product/:name', async (req, res) => {
-    const productId = req.body._id;
+    const productId = req.body.id;
     const product = await Product.findOne({
         _id:productId
     });
@@ -20,7 +20,7 @@ productRouter.get('/api/product/:name', async (req, res) => {
 
 
 //to find similiar products
-productRouter.get("/api/product/:name/similiar-products", async (req, res) => {
+productRouter.get("/api/product/:name/similar-products", async (req, res) => {
     
     const productType = req.body.productType;
 const productList = [];

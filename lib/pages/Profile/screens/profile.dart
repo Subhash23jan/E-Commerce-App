@@ -22,11 +22,11 @@ class _UserProfileState extends State<UserProfile> {
    @override
   void initState() {
     super.initState();
-
+    _user=Provider.of<UserProvider>(context).user;
   }
   @override
   Widget build(BuildContext context) {
-    _user=Provider.of<UserProvider>(context).user;
+
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),
