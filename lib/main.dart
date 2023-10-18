@@ -2,6 +2,7 @@ import 'package:amazon_clone_flutter/pages/Profile/screens/profile.dart';
 import 'package:amazon_clone_flutter/pages/Cart/screens/cart_page.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/screens/home_screen_page.dart';
 import 'package:amazon_clone_flutter/pages/Profile/screens/sample.dart';
+import 'package:amazon_clone_flutter/pages/homeScreen/screens/product_screen.dart';
 import 'package:amazon_clone_flutter/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -49,10 +50,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: PageView(
         allowImplicitScrolling: true,
-        physics: const NeverScrollableScrollPhysics(),
         controller: _pagecontroller,
+        physics: const NeverScrollableScrollPhysics(),
         children: const [
-          HomepageScreen(),
+          ProductPage(productId: "productId"),
           UserProfile(),
           CartPage()
         ],

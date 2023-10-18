@@ -39,7 +39,10 @@ class _HomepageScreenState extends State<HomepageScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white,
+                    ),
                     width:300,
                     child: TextFormField(
                       controller: searchController,
