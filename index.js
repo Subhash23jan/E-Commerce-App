@@ -4,7 +4,7 @@ const authRouter = require('./server/routes/auth');
 const userRouter = require('./server/routes/user_router');
 const adminRouter = require('./server/routes/admin_router');
 const productRouter = require('./server/routes/product_router');
-const DB='mongodb+srv://subhash613d:subhash123@cluster0.wgtypza.mongodb.net/?retryWrites=true&w=majority';
+const DB='mongodb+srv://xxxxxxxx@cluster0.wgtypza.mongodb.net/?retryWrites=true&w=majority';
 console.log("subhash");
 const app=express();
 
