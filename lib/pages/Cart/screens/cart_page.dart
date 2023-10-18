@@ -19,7 +19,7 @@ class _CartPageState extends State<CartPage> {
   late  UserModel _user;
   @override
   Widget build(BuildContext context) {
-    _user=Provider.of<UserProvider>(context).user;
+    _user=Provider.of<UserProvider>(context,listen: false).user;
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(70),

@@ -1,4 +1,4 @@
-import 'package:amazon_clone_flutter/products/widgets/product.dart';
+import 'package:amazon_clone_flutter/products/widgets/cart_product.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

@@ -18,11 +18,13 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-   late final UserModel _user;
+  late UserModel ? _user;
    @override
   void initState() {
     super.initState();
-    _user=Provider.of<UserProvider>(context).user;
+    Future.delayed(Duration.zero, () {
+      _user=Provider.of<UserProvider>(context,listen: false).user;
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -73,11 +75,11 @@ class _UserProfileState extends State<UserProfile> {
               Padding(
                 padding: const EdgeInsets.only(left: 15,top: 8,bottom: 5),
                 child: RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                   children: [
-                    TextSpan(text: "Hello  ",style:const TextStyle(color: Colors.black),
+                    TextSpan(text: "Hello  ",style:TextStyle(color: Colors.black),
                       children: [
-                        TextSpan(text: _user.name,style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black,))
+                        TextSpan(text:"subhash",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,))
                       ]
                     )
                   ]
