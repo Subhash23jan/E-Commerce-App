@@ -1,4 +1,4 @@
-import 'package:amazon_clone_flutter/products/widgets/cart_product.dart';
+import 'package:amazon_clone_flutter/products/widgets/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -70,9 +70,9 @@ class _AllProductsState extends State<AllProducts> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        CartProduct(),
-                        CartProduct(),
-                        CartProduct(),
+                        ProductWidget(),
+                        ProductWidget(),
+                        ProductWidget(),
                       ],
                     ),
                   ),
@@ -86,8 +86,8 @@ class _AllProductsState extends State<AllProducts> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        CartProduct(),
-                        CartProduct(),
+                        ProductWidget(),
+                        ProductWidget(),
                       ],
                     ),
                   ),
@@ -101,8 +101,8 @@ class _AllProductsState extends State<AllProducts> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        CartProduct(),
-                        CartProduct(),
+                        ProductWidget(),
+                        ProductWidget(),
                       ],
                     ),
                   ),

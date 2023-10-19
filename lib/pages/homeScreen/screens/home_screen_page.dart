@@ -24,43 +24,55 @@ class _HomepageScreenState extends State<HomepageScreen> {
     return  Scaffold(
       backgroundColor: GlobalVariables.greyBackgroundColor,
       appBar: PreferredSize(
-        preferredSize:const Size.fromHeight(66),
+        preferredSize:const Size.fromHeight(86),
         child: Container(
-          decoration: const BoxDecoration(
-            gradient: GlobalVariables.appBarGradient
-          ),
-          child: Column(
-            mainAxisAlignment:MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
-                    ),
-                    width:300,
-                    child: TextFormField(
-                      controller: searchController,
-                      textAlign: TextAlign.start,
-                      decoration: const InputDecoration(
+            padding: const EdgeInsets.only(top: 50,bottom: 12),
+            decoration: const BoxDecoration(
+                gradient: GlobalVariables.appBarGradient
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: Colors.white,
+                  ),
+
+                  width:360,
+                  child: TextFormField(
+                    controller: searchController,
+                    textAlign: TextAlign.start,
+                    decoration:   InputDecoration(
                         border: InputBorder.none,
-                          suffixIcon:Icon(Icons.camera_enhance_outlined,color: Colors.grey,size: 28,),
+                        suffixIcon:SizedBox(
+                          width: 100,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: () {
+
+                                },
+                                  child: const Icon(Icons.camera_enhance_outlined,color: Colors.grey,size: 28,)),
+                              InkWell(
+                                onTap: () {
+
+                                },
+                                  child: const Icon(Icons.keyboard_voice,color: Colors.grey,size: 28,)),
+
+                            ],
+                          ),
+                        ),
                         prefixIcon:Icon(Icons.search,color: Colors.grey,size: 32,),
                         hintText: "Search in Amazon.in",
                         hintStyle: TextStyle(color: Colors.black54,fontWeight: FontWeight.w500,fontSize: 18)
-                      ),
                     ),
                   ),
-                  const Icon(Icons.keyboard_voice_rounded,color: Colors.black,size: 31,)
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            )
         ),
       ),
       body: SingleChildScrollView(

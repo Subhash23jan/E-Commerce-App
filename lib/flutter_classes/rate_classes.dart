@@ -5,7 +5,6 @@ class ProductRates{
   Widget getRate(int rate,double offer,double fontSize, {String offerReason = "Great Indian Festival"})
   {
     return SizedBox(
-      height: 180,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
