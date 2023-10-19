@@ -63,30 +63,25 @@ class _CartPageState extends State<CartPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
              addressBox(),
-            const Padding(
-              padding: EdgeInsets.only(left: 20.0,top: 10,bottom: 8),
-              child: Text("Sub total ₹1000",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
+             Padding(
+              padding: const EdgeInsets.only(left: 20.0,top: 10,bottom: 8),
+              child: Text("Sub total ₹1000",style: GoogleFonts.aBeeZee(fontSize: 24,fontWeight: FontWeight.bold),),
             ),
             InkWell(
               onTap: (){},
-              child: Container(
-                margin: const EdgeInsets.only(left: 20),
-                height: 55,
-                width:MediaQuery.of(context).size.width*0.9,
+              child: Align(
                 alignment: Alignment.center,
-                decoration:  BoxDecoration(
-                    color: Colors.yellow,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0, 4),
-                        blurRadius: 4,
-                        spreadRadius: 0.6,
-                      ),
-                    ],
-                    borderRadius:BorderRadius.circular(12)
+                child: Container(
+                    margin: const EdgeInsets.only(top: 8,bottom: 25),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(33),
+                      color: Colors.yellowAccent.shade700,
+                    ),
+                    height: 50,
+                    width: MediaQuery.of(context).size.width*0.9,
+                    alignment: Alignment.center,
+                    child:Text("Proceed to Buy (1 item)",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 21,fontWeight: FontWeight.bold),)
                 ),
-                child: Text("Proceed to Buy(1 item)",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 19),),
               ),
             ),
             Padding(

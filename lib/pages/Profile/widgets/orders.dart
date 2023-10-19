@@ -1,4 +1,6 @@
 import 'package:amazon_clone_flutter/constants/global_variables.dart';
+import 'package:amazon_clone_flutter/main.dart';
+import 'package:amazon_clone_flutter/pages/homeScreen/screens/home_screen_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 class YourOrders extends StatelessWidget {
@@ -29,7 +31,9 @@ class YourOrders extends StatelessWidget {
             ),
             Center(
               child: InkWell(
-                onTap: (){},
+                onTap: (){
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage(),));
+                },
                 child: Container(
                   height: 55,
                   width:MediaQuery.of(context).size.width*0.9,
