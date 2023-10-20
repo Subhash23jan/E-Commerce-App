@@ -23,27 +23,27 @@ class YourOrders extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Your Orders",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 19),),
+            Text("Your Orders",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 15.5),),
              Container(
                margin: const EdgeInsets.symmetric(vertical: 5),
               height: 40,
-              child: Text("Hii!! You have no recent orders!!.",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color:Colors.grey,fontSize: 16),)
+              child: Text("Hii!! You have no recent orders!!.",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color:Colors.grey,fontSize: 15),)
             ),
             Center(
               child: InkWell(
                 onTap: (){
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage(),));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const MainPage(),));
                 },
                 child: Container(
                   height: 55,
-                  width:MediaQuery.of(context).size.width*0.9,
+                  width:MediaQuery.of(context).size.width*0.75,
                  alignment: Alignment.center,
                  decoration:  BoxDecoration(
                    color: Colors.white12,
                    border: Border.all(color: Colors.black87),
                    borderRadius:BorderRadius.circular(12)
                  ),
-                 child: Text("Return to the Homepage",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 19),),
+                 child: Text("Return to the Homepage",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 16),),
                 ),
               ),
             )

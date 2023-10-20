@@ -46,18 +46,18 @@ class _UserProfileState extends State<UserProfile> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 8,left: 2),
-                      child: Image.asset("assets/images/amazon_in.png",height: 45),
+                      child: Image.asset("assets/images/amazon_in.png",height: 35),
                     ),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Padding(
                           padding: EdgeInsets.only(right: 22),
-                          child: Icon(Icons.notifications_none,color: Colors.black,size:35,),
+                          child: Icon(Icons.notifications_none,color: Colors.black,size:28,),
                         ),
                         Padding(
                           padding: EdgeInsets.only(right: 10),
-                          child: Icon(Icons.search,color: Colors.black,size: 35,),
+                          child: Icon(Icons.search,color: Colors.black,size: 28,),
                         )
                       ],
                     )
@@ -79,7 +79,7 @@ class _UserProfileState extends State<UserProfile> {
                   children: [
                     TextSpan(text: "Hello  ",style:TextStyle(color: Colors.black),
                       children: [
-                        TextSpan(text:"subhash",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,))
+                        TextSpan(text:"Subhash",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontStyle: FontStyle.italic))
                       ]
                     )
                   ]

@@ -21,8 +21,8 @@ class YourLists extends StatelessWidget {
           Row(
             mainAxisAlignment:MainAxisAlignment.spaceBetween,
             children: [
-              Text("Your Lists",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 19),),
-              Text("See all",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.w600,color: Colors.cyan,fontSize: 18),),
+              Text("Your Lists",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 16),),
+              Text("See all",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.w600,color: Colors.cyan,fontSize: 16),),
 
             ],
           ),
@@ -45,8 +45,8 @@ class YourLists extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Shopping List",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.w700,color: Colors.black87,fontSize: 19),),
-                      Text("Private-Default",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.w500,color: Colors.grey,fontSize: 17),),
+                      Text("Shopping List",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.w700,color: Colors.black87,fontSize: 15),),
+                      Text("Private-Default",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.w500,color: Colors.grey,fontSize: 15),),
                     ],
                   ),
                  ClipRRect(

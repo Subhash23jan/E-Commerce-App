@@ -21,8 +21,8 @@ class YourAccount extends StatelessWidget {
           Row(
             mainAxisAlignment:MainAxisAlignment.spaceBetween,
             children: [
-              Text("Your Account",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 19),),
-              Text("See all",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.w600,color: Colors.cyan,fontSize: 18),),
+              Text("Your Account",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 16),),
+              Text("See all",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.w600,color: Colors.cyan,fontSize: 16),),
 
             ],
           ),
@@ -41,7 +41,7 @@ class YourAccount extends StatelessWidget {
                       alignment: Alignment.center,
                       children: [
                         Container(
-                          height: 50,
+                          height: 40,
                           width: 180,
                           alignment: Alignment.center,
                           decoration:  BoxDecoration(
@@ -49,7 +49,7 @@ class YourAccount extends StatelessWidget {
                           ),
                           child:Text("Your Addresses",
                               style: GoogleFonts.aBeeZee(color: Colors.black,
-                                  fontSize: 18,fontWeight: FontWeight.w600)),
+                                  fontSize: 15,fontWeight: FontWeight.w600)),
                         ),
                       ],
                     ),
@@ -63,7 +63,7 @@ class YourAccount extends StatelessWidget {
                       alignment: Alignment.center,
                       children: [
                         Container(
-                          height: 50,
+                          height: 40,
                           width: 350,
                           alignment: Alignment.center,
                           decoration:  BoxDecoration(
@@ -71,7 +71,7 @@ class YourAccount extends StatelessWidget {
                           ),
                           child:Text("Top-up your Amazon Pay Wallet",
                               style: GoogleFonts.aBeeZee(color: Colors.black,
-                                  fontSize: 18,fontWeight: FontWeight.w600)),
+                                  fontSize: 14,fontWeight: FontWeight.w600)),
                         ),
                       ],
                     ),
@@ -85,7 +85,7 @@ class YourAccount extends StatelessWidget {
                       alignment: Alignment.center,
                       children: [
                         Container(
-                          height: 50,
+                          height: 40,
                           width: 250,
                           alignment: Alignment.center,
                           decoration:  BoxDecoration(
@@ -93,7 +93,7 @@ class YourAccount extends StatelessWidget {
                           ),
                           child:Text("Amazon Prime Service",
                               style: GoogleFonts.aBeeZee(color: Colors.black,
-                                  fontSize: 18,fontWeight: FontWeight.w600)),
+                                  fontSize: 15,fontWeight: FontWeight.w600)),
                         ),
                       ],
                     ),
@@ -107,7 +107,7 @@ class YourAccount extends StatelessWidget {
                       alignment: Alignment.center,
                       children: [
                         Container(
-                          height: 50,
+                          height: 40,
                           width: 250,
                           alignment: Alignment.center,
                           decoration:  BoxDecoration(
@@ -115,7 +115,7 @@ class YourAccount extends StatelessWidget {
                           ),
                           child:Text("Saved Information",
                               style: GoogleFonts.aBeeZee(color: Colors.black,
-                                  fontSize: 18,fontWeight: FontWeight.w600)),
+                                  fontSize: 15,fontWeight: FontWeight.w600)),
                         ),
                       ],
                     ),
