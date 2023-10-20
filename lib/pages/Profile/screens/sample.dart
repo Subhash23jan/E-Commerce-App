@@ -17,6 +17,6 @@ class Sample extends StatefulWidget {
 class _SampleState extends State<Sample> {
   @override
   Widget build(BuildContext context) {
-    return Provider.of<UserProvider>(context,listen: true).user.email.isNotEmpty? const SignInPage():const HomePage();
+    return Provider.of<UserProvider>(context,listen: true).user.email.isNotEmpty? const SignInPage():const MainPage();
   }
 }

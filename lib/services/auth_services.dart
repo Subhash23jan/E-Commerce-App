@@ -85,7 +85,7 @@ class AuthService {
                 .setUser(response.body);
 
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const HomePage(),
+              builder: (context) => const MainPage(),
             ));
           });
     } catch (e) {

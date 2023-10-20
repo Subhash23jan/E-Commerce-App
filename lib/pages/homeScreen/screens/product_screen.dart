@@ -1,6 +1,7 @@
 import 'package:amazon_clone_flutter/flutter_classes/rate_classes.dart';
 import 'package:amazon_clone_flutter/flutter_classes/size_classes.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -25,9 +26,9 @@ class _ProductPageState extends State<ProductPage> {
     int? quantity=1;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize:const Size.fromHeight(86),
+        preferredSize:const Size.fromHeight(76),
         child: Container(
-          padding: const EdgeInsets.only(top: 50,bottom: 12),
+          padding: const EdgeInsets.only(top: 40,bottom: 12),
           decoration: const BoxDecoration(
               gradient: GlobalVariables.appBarGradient
           ),
@@ -35,15 +36,21 @@ class _ProductPageState extends State<ProductPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   InkWell(
-                    onTap: (){},
-                      child: const Icon(Icons.arrow_back,size: 28,)),
+                    onTap: (){
+                      if (kDebugMode) {
+                        print("clicked");
+                      }
+                      Navigator.maybePop(context);
+                    },
+                      child: const Icon(Icons.arrow_back,size: 24,)),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
                       color: Colors.white,
                     ),
 
-                    width:350,
+                    width:320,
+                    height: 40,
                     child: TextFormField(
                       controller: searchController,
                       textAlign: TextAlign.start,
@@ -55,15 +62,15 @@ class _ProductPageState extends State<ProductPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(Icons.camera_enhance_outlined,color: Colors.grey,size: 28,),
-                                Icon(Icons.keyboard_voice,color: Colors.grey,size: 28,),
+                                Icon(Icons.camera_enhance_outlined,color: Colors.grey,size: 24,),
+                                Icon(Icons.keyboard_voice,color: Colors.grey,size: 24,),
 
                               ],
                             ),
                           ),
-                          prefixIcon:Icon(Icons.search,color: Colors.grey,size: 32,),
+                          prefixIcon:Icon(Icons.search,color: Colors.grey,size: 27,),
                           hintText: "Search in Amazon.in",
-                          hintStyle: TextStyle(color: Colors.black54,fontWeight: FontWeight.w500,fontSize: 18)
+                          hintStyle: TextStyle(color: Colors.black54,fontWeight: FontWeight.w500,fontSize: 15)
                       ),
                     ),
                   ),
@@ -80,17 +87,9 @@ class _ProductPageState extends State<ProductPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Red Tape Men's Sneakers",style: GoogleFonts.aBeeZee(color: Colors.grey.shade700,fontSize: 19),),
-              const SizedBox(height: 4,),
+              Text("Red Tape Men's Sneakers",style: GoogleFonts.aBeeZee(color: Colors.grey.shade700,fontSize: 18.5),),
               Stack(
                 children: [
-                  const Positioned(
-                    right: 5,
-                      child: Icon(Icons.share_outlined,size: 32,color: Colors.black,)),
-                  const Positioned(
-                    bottom: 9,
-                      left: 6,
-                      child: Icon(Icons.favorite_outline,size:32 ,)),
                   Positioned(
                     child: Container(
                       decoration: const BoxDecoration(
@@ -103,32 +102,41 @@ class _ProductPageState extends State<ProductPage> {
                         )
                       ),
                     alignment: Alignment.center,
-                    height: 350,
+                    height: 290,
                     width: MediaQuery.of(context).size.width,
-
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                         child: Image.asset('assets/images/shoes.png',height: 250,width: MediaQuery.of(context).size.width*0.8,fit: BoxFit.fill,)),
                 ),
-                  )],
+                  ),
+                  const Positioned(
+                      right: 7.1,
+                      top: 10,
+                      child: Icon(Icons.share_outlined,size: 29,color: Colors.black,)),
+                  const Positioned(
+                      bottom: 9,
+                      left: 6,
+                      child: Icon(Icons.favorite_outline,size:28 ,)),
+                ],
               ),
               const SizedBox(
                 height: 10,
               ),
-              Text("Size : ${sizeSelected??""}",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 21,fontWeight: FontWeight.bold),),
+              Text("Size : ${sizeSelected??""}",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 17.5,fontWeight: FontWeight.bold),),
               Sizes().shoeSize(),
-              const SizedBox(height: 20,),
-              ProductRates().getRate(5999, 58.09,38),
+              const SizedBox(height: 2,),
+              ProductRates().getRate(5999, 58.09,25),
+              const SizedBox(height: 2,),
               const SizedBox(height: 15,),
               RichText(text: TextSpan(
                 children:[
                   TextSpan(
-                    text: "Free Delivery   ",
-                    style: GoogleFonts.aBeeZee(color: Colors.cyan,fontSize: 18)
+                    text: "Free Delivery !!  ",
+                    style: GoogleFonts.aBeeZee(color: Colors.red,fontSize: 15)
                   ),
                   TextSpan(
                     text: formattedDate,
-                    style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18)
+                    style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15)
                   )
                 ]
               )),
@@ -137,16 +145,16 @@ class _ProductPageState extends State<ProductPage> {
               ),
               Row(
                 children: [
-                  const Icon(Icons.location_on,color: Colors.grey,size: 24,),
-                  const SizedBox(width: 12,),
-                  Text("user location",style: GoogleFonts.aBeeZee(color: Colors.cyan.shade600,fontSize: 21),)
+                  const Icon(Icons.location_on,color: Colors.grey,size: 22,),
+                  const SizedBox(width: 6,),
+                  Text("user location",style: GoogleFonts.aBeeZee(color: Colors.cyan.shade600,fontSize: 16),)
                 ],
               ),
               const SizedBox(
                 height: 10,
               ),
               Text("In stock",style: GoogleFonts.aBeeZee(color: Colors.green,fontWeight: FontWeight.w700,
-                  fontSize: 22),),
+                  fontSize: 17),),
               const SizedBox(
                 height: 10,
               ),
@@ -154,7 +162,7 @@ class _ProductPageState extends State<ProductPage> {
                 elevation: 8,
                 shadowColor: Colors.black,
                 child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 6),
+                  margin: const EdgeInsets.symmetric(horizontal: 1),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.black,width: 1),
@@ -167,7 +175,7 @@ class _ProductPageState extends State<ProductPage> {
 
                     value: quantity,
                     iconSize: 33,
-                    style: const TextStyle(fontSize: 22,color: Colors.black,fontWeight: FontWeight.w400),
+                    style: const TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.w400),
                     menuMaxHeight: 200,
                     borderRadius: BorderRadius.circular(12),
                     alignment: Alignment.center,
@@ -200,9 +208,9 @@ class _ProductPageState extends State<ProductPage> {
                       color: Colors.yellow.shade900,
                     ),
                     height: 50,
-                    width: MediaQuery.of(context).size.width*0.9,
+                    width: MediaQuery.of(context).size.width*0.80,
                     alignment: Alignment.center,
-                    child:Text("Add to Cart",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 21,fontWeight: FontWeight.bold),)
+                    child:Text("Add to Cart",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 16.5,fontWeight: FontWeight.bold),)
                 ),
               ),
               Align(
@@ -214,9 +222,9 @@ class _ProductPageState extends State<ProductPage> {
                       color: Colors.yellowAccent.shade700,
                     ),
                     height: 50,
-                    width: MediaQuery.of(context).size.width*0.9,
+                    width: MediaQuery.of(context).size.width*0.80,
                     alignment: Alignment.center,
-                    child:Text("Buy it Now",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 21,fontWeight: FontWeight.bold),)
+                    child:Text("Buy it Now",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 16.5,fontWeight: FontWeight.bold),)
                 ),
               ),
               Container(
@@ -226,11 +234,11 @@ class _ProductPageState extends State<ProductPage> {
                   border: Border(bottom: BorderSide(color: Colors.grey.shade400,width: 3))
                 ),
               ),
-              Text("Recommended Products",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.w700,
-                  fontSize: 18),),
+              Text("Recommended Products :",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.w700,
+                  fontSize: 17),),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
-                height: 260,
+                height: 240,
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,

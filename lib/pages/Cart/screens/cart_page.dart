@@ -22,7 +22,7 @@ class _CartPageState extends State<CartPage> {
     _user=Provider.of<UserProvider>(context,listen: false).user;
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(70),
+          preferredSize: const Size.fromHeight(65),
           child: Container(
             decoration: const BoxDecoration(
                 gradient: GlobalVariables.appBarGradient
@@ -37,18 +37,18 @@ class _CartPageState extends State<CartPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 8,left: 2),
-                      child: Image.asset("assets/images/amazon_in.png",height: 45),
+                      child: Image.asset("assets/images/amazon_in.png",height: 40),
                     ),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Padding(
                           padding: EdgeInsets.only(right: 22),
-                          child: Icon(Icons.notifications_none,color: Colors.black,size:35,),
+                          child: Icon(Icons.notifications_none,color: Colors.black,size:28,),
                         ),
                         Padding(
                           padding: EdgeInsets.only(right: 10),
-                          child: Icon(Icons.search,color: Colors.black,size: 35,),
+                          child: Icon(Icons.search,color: Colors.black,size: 28,),
                         )
                       ],
                     )
@@ -64,8 +64,8 @@ class _CartPageState extends State<CartPage> {
           children: [
              addressBox(),
              Padding(
-              padding: const EdgeInsets.only(left: 20.0,top: 10,bottom: 8),
-              child: Text("Sub total ₹1000",style: GoogleFonts.aBeeZee(fontSize: 24,fontWeight: FontWeight.bold),),
+              padding: const EdgeInsets.only(left: 60.0,top: 10,bottom: 8),
+              child: Text("Sub total : ₹1000",style: GoogleFonts.aBeeZee(fontSize: 18,fontWeight: FontWeight.w600),),
             ),
             InkWell(
               onTap: (){},
@@ -78,15 +78,20 @@ class _CartPageState extends State<CartPage> {
                       color: Colors.yellowAccent.shade700,
                     ),
                     height: 50,
-                    width: MediaQuery.of(context).size.width*0.9,
+                    width: MediaQuery.of(context).size.width*0.80,
                     alignment: Alignment.center,
-                    child:Text("Proceed to Buy (1 item)",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 21,fontWeight: FontWeight.bold),)
+                    child:Text("Proceed to Buy (1 item)",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold),)
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0,left: 15,bottom: 8),
-              child: Text("Deselect all items",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.blue.shade700,fontSize: 19),),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.grey.shade100,
+              ),
+              margin: const EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+              child: Text("Deselect all items",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.blue.shade700,fontSize: 15),),
             ),
              cartItem()
           ],

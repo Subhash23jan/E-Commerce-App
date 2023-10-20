@@ -13,10 +13,10 @@ class ProductRates{
               borderRadius: BorderRadius.circular(6),
               color: Colors.red.shade900,
             ),
-            height: 30,
+            height: 28,
             alignment: Alignment.center,
             width: 200,
-            child: const Text("Great Indian Festival",style: TextStyle(color: Colors.white,fontSize: 16),),
+            child: const Text("Great Indian Festival",style: TextStyle(color: Colors.white,fontSize: 14),),
           ),
           Row(
             children: [

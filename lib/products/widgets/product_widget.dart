@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 class ProductWidget extends StatefulWidget {
   const ProductWidget({super.key});
+  //final String productId;
 
   @override
   State<ProductWidget> createState() => _ProductWidgetState();
@@ -32,8 +33,8 @@ class _ProductWidgetState extends State<ProductWidget> {
               child: Image.network(fit: BoxFit.fill,"https://assets-in.bmscdn.com/discovery-catalog/events/et00351665-wcxbpmaede-landscape.jpg",
                 width: 145,height: 175,),
             ),
-            Text("Annana Nenapu",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.blue.shade700,fontSize: 19),),
-            Text("₹201.00",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 19),),
+            Text("Annana Nenapu",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.blue.shade700,fontSize: 15),),
+            Text("₹201.00",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 15),),
           ],
         ),
       ),

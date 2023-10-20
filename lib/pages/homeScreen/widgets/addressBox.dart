@@ -5,7 +5,7 @@ import '../../../constants/global_variables.dart';
 Container addressBox()
 {
   return Container(
-    padding: const EdgeInsets.only(top: 5,bottom: 8,left: 2,right: 2),
+    padding: const EdgeInsets.only(top: 5,bottom: 10,left: 2,right: 2),
     decoration: const BoxDecoration(
         gradient: GlobalVariables.appBarGradient
     ),
