@@ -68,6 +68,7 @@ class _MainPageState extends State<MainPage> {
         useLegacyColorScheme: false,
         backgroundColor:const Color(0xFF09073B),
         currentIndex: _pageIndex,
+        landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
         elevation: 12,
         enableFeedback: true,
         selectedItemColor: Colors.blue,
@@ -86,8 +87,7 @@ class _MainPageState extends State<MainPage> {
         },
           iconSize: 28,
           items: const [
-            BottomNavigationBarItem(
-              icon:Icon(CupertinoIcons.home,size: 23,),label:'Home',),
+            BottomNavigationBarItem(icon:Icon(CupertinoIcons.home,size: 23,),label:'Home',),
             BottomNavigationBarItem(icon:Icon(Icons.ads_click,size: 23,),label: 'More'),
             BottomNavigationBarItem(icon:Icon(CupertinoIcons.person),label: 'You'),
             BottomNavigationBarItem(icon:Icon(CupertinoIcons.cart),label: 'Cart',)
