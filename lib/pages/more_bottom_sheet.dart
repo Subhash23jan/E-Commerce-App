@@ -11,20 +11,23 @@ class OptionalBottomSheet extends StatefulWidget {
 }
 
 class _OptionalBottomSheetState extends State<OptionalBottomSheet> with TickerProviderStateMixin {
+ late final AnimationController ? _controller;
   @override
   void initState() {
     super.initState();
+    _controller=AnimationController(vsync:this,duration:const Duration(milliseconds: 600));
     Future.delayed(Duration.zero,() => moreOptionSheet(context));
   }
   @override
   void dispose() {
     // TODO: implement dispose
+    _controller?.dispose();
     super.dispose();
   }
   Future moreOptionSheet( BuildContext context){
     return showModalBottomSheet(
       backgroundColor: Colors.black,
-      transitionAnimationController: AnimationController(vsync:this,duration:const Duration(milliseconds: 600)),
+      transitionAnimationController:_controller,
       isDismissible: true,
       useSafeArea: true,
       context:context , builder: (context) {

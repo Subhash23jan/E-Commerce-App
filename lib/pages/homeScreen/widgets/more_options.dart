@@ -13,7 +13,6 @@ class MoreOptions extends StatelessWidget {
       child: Card(
         elevation: 12,
         child: GridView.count(
-
           physics: const NeverScrollableScrollPhysics(),
           childAspectRatio:2.8,
           crossAxisSpacing: 8,
@@ -35,7 +34,7 @@ class MoreOptions extends StatelessWidget {
                       ),
                       child:Text("Admin login",
                           style: GoogleFonts.aBeeZee(color: Colors.black,
-                              fontSize: 18,fontWeight: FontWeight.w600)),
+                              fontSize: 16,fontWeight: FontWeight.w600)),
                     ),
                   ],
                 ),
@@ -53,7 +52,7 @@ class MoreOptions extends StatelessWidget {
                   ),
                   child:Text("Manage orders",
                       style: GoogleFonts.aBeeZee(color: Colors.black,
-                          fontSize: 18,fontWeight: FontWeight.w600)),
+                          fontSize: 16,fontWeight: FontWeight.w600)),
                 ),
               ),
             ),

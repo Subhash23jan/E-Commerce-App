@@ -22,7 +22,7 @@ class _CartPageState extends State<CartPage> {
     _user=Provider.of<UserProvider>(context,listen: false).user;
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(65),
+          preferredSize: const Size.fromHeight(55),
           child: Container(
             decoration: const BoxDecoration(
                 gradient: GlobalVariables.appBarGradient

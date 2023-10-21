@@ -20,7 +20,7 @@ class DealOfTheDay extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children:  [
              Center(child: Text("Deal of the day",
-              style: GoogleFonts.aBeeZee(color: Colors.black87,fontSize: 19,fontWeight: FontWeight.w700))),
+              style: GoogleFonts.aBeeZee(color: Colors.black87,fontSize: 15,fontWeight: FontWeight.w700))),
             Center(
               child: InkWell(
                 onTap:()=> Navigator.of(context).push(MaterialPageRoute(builder: (context) => AllProducts(),)),
@@ -34,11 +34,11 @@ class DealOfTheDay extends StatelessWidget {
             Flexible(
               flex: 1,
               child: Text(" 14-inch MacBook Pro with 16GB Unified Memory 512GB SSD Storage",
-                  style: GoogleFonts.aBeeZee(color: Colors.black87,fontSize: 19,fontWeight: FontWeight.w700,
+                  style: GoogleFonts.aBeeZee(color: Colors.black87,fontSize: 15,fontWeight: FontWeight.w700,
                       textStyle: const TextStyle( overflow: TextOverflow.ellipsis,))),
             ),
             Text(" Rs.109999.00",
-                style: GoogleFonts.jetBrainsMono(color: Colors.black87,fontSize: 19,fontWeight: FontWeight.w500)),
+                style: GoogleFonts.jetBrainsMono(color: Colors.black87,fontSize: 15,fontWeight: FontWeight.w500)),
           ],
         ),
       ),
