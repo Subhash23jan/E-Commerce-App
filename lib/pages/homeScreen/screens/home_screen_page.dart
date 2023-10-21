@@ -55,19 +55,19 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                 onTap: () {
 
                                 },
-                                  child: const Icon(Icons.camera_enhance_outlined,color: Colors.grey,size: 28,)),
+                                  child: const Icon(Icons.camera_enhance_outlined,color: Colors.grey,size: 23,)),
                               InkWell(
                                 onTap: () {
 
                                 },
-                                  child: const Icon(Icons.keyboard_voice,color: Colors.grey,size: 28,)),
+                                  child: const Icon(Icons.keyboard_voice,color: Colors.grey,size: 23,)),
 
                             ],
                           ),
                         ),
-                        prefixIcon:Icon(Icons.search,color: Colors.grey,size: 32,),
+                        prefixIcon:const Icon(Icons.search,color: Colors.grey,size: 26,),
                         hintText: "Search in Amazon.in",
-                        hintStyle: TextStyle(color: Colors.black54,fontWeight: FontWeight.w500,fontSize: 18)
+                        hintStyle: TextStyle(color: Colors.black54,fontWeight: FontWeight.w500,fontSize: 14)
                     ),
                   ),
                 ),
@@ -88,7 +88,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
               margin: const EdgeInsets.only(top: 18,left: 22),
               alignment:Alignment.centerLeft,
               child: Text("More options",
-                  style: GoogleFonts.aBeeZee(color: Colors.black87,fontSize: 21,fontWeight: FontWeight.w700)),
+                  style: GoogleFonts.aBeeZee(color: Colors.black87,fontSize: 17.5,fontWeight: FontWeight.w700)),
             ),
             const MoreOptions(),
             const SizedBox(height: 25,)

@@ -56,8 +56,8 @@ class _MainPageState extends State<MainPage> {
         controller: _pagecontroller,
         physics: const NeverScrollableScrollPhysics(),
         children: const [
-          ProductPage(productId: "productId"),
-          //HomepageScreen(),
+         // ProductPage(productId: "productId"),
+          HomepageScreen(),
           OptionalBottomSheet(),
           UserProfile(),
           CartPage()
@@ -65,7 +65,19 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor:Colors.black,
+        useLegacyColorScheme: false,
+        backgroundColor:const Color(0xFF09073B),
+        currentIndex: _pageIndex,
+        elevation: 12,
+        enableFeedback: true,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.white,
+        showUnselectedLabels: true,
+        showSelectedLabels: true,
+        unselectedIconTheme: const IconThemeData(color: Colors.white),
+        selectedIconTheme: const IconThemeData(size: 34,color: Colors.blue),
+        unselectedLabelStyle: const TextStyle(color: Colors.white70,fontSize: 14),
+        selectedLabelStyle: const TextStyle(color: Colors.white70,fontSize: 17,fontWeight: FontWeight.bold),
         onTap: (value) {
           setState(() {
             _pageIndex=value;
@@ -73,12 +85,12 @@ class _MainPageState extends State<MainPage> {
           });
         },
           iconSize: 28,
-          items: [
+          items: const [
             BottomNavigationBarItem(
-              icon:Icon(CupertinoIcons.home,color:_pageIndex==0?Colors.blue:Colors.white,size: 23,),label:'',),
-            BottomNavigationBarItem(icon:Icon(Icons.ads_click,color:_pageIndex==1?Colors.blue:Colors.white,size: 23,),label: ''),
-            BottomNavigationBarItem(icon:Icon(CupertinoIcons.person,color:_pageIndex==2?Colors.blue:Colors.white,),label: ''),
-            BottomNavigationBarItem(icon:Icon(CupertinoIcons.cart,color:_pageIndex==3?Colors.blue:Colors.white,),label: '',)
+              icon:Icon(CupertinoIcons.home,size: 23,),label:'Home',),
+            BottomNavigationBarItem(icon:Icon(Icons.ads_click,size: 23,),label: 'More'),
+            BottomNavigationBarItem(icon:Icon(CupertinoIcons.person),label: 'You'),
+            BottomNavigationBarItem(icon:Icon(CupertinoIcons.cart),label: 'Cart',)
           ]),
     );
   }
