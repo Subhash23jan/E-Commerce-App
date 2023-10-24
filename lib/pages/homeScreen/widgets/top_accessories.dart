@@ -27,7 +27,7 @@ class TopAccessories extends StatelessWidget {
                   width: 40,
                 ),
                 ),
-                 Text(GlobalVariables.categoryImages[index]['title']!)
+                 Text(GlobalVariables.categoryImages[index]['title']!,style: const TextStyle(fontSize: 12)),
               ],
             ),
           );

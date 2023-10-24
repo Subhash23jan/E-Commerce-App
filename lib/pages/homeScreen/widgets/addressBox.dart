@@ -15,7 +15,7 @@ Container addressBox()
       children:  [
         Icon(Icons.location_on,size: 18,),
         Flexible(
-          child: Text(" Delivery to : Subhash Uttarahalli Bcm Hostel,Bengaluru 560061,karnataka",style:TextStyle(fontSize: 14.6,fontWeight: FontWeight.w400),overflow: TextOverflow.ellipsis,
+          child: Text(" Deliver to : Subhash Uttarahalli Bcm Hostel,Bengaluru 560061,karnataka",style:TextStyle(fontSize: 14.6,fontWeight: FontWeight.w400),overflow: TextOverflow.ellipsis,
             softWrap: true,
             maxLines: 1,),
         ),

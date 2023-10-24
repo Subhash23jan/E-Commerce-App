@@ -12,11 +12,12 @@ class BuyAgain extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Buy Again",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 16.5),),
+            Text("Buy Again",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 15),),
             Container(
                 margin: const EdgeInsets.symmetric(vertical: 5),
                 height: 40,
-                child: Text("See what others are reordering on Buy Again",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color:Colors.grey,fontSize: 15.5),)
+                child: Text("See what others are reordering on Buy Again",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,
+                    color:Colors.grey,fontSize: 14.5),)
             ),
           ],
         ),

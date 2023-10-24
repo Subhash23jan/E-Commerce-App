@@ -62,7 +62,7 @@ class _ProductPageState extends State<ProductPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(Icons.camera_enhance_outlined,color: Colors.grey,size: 24,),
+                                Icon(CupertinoIcons.camera,color: Colors.grey,size: 24,),
                                 Icon(Icons.keyboard_voice,color: Colors.grey,size: 24,),
 
                               ],
@@ -87,7 +87,7 @@ class _ProductPageState extends State<ProductPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Red Tape Men's Sneakers",style: GoogleFonts.aBeeZee(color: Colors.grey.shade700,fontSize: 18.5),),
+              Text("Red Tape Men's Sneakers",style: GoogleFonts.aBeeZee(color: Colors.grey.shade700,fontSize: 16.5),),
               Stack(
                 children: [
                   Positioned(
@@ -102,30 +102,30 @@ class _ProductPageState extends State<ProductPage> {
                         )
                       ),
                     alignment: Alignment.center,
-                    height: 290,
+                    height: 260,
                     width: MediaQuery.of(context).size.width,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                        child: Image.asset('assets/images/shoes.png',height: 250,width: MediaQuery.of(context).size.width*0.8,fit: BoxFit.fill,)),
+                      borderRadius: BorderRadius.circular(18),
+                        child: Image.asset('assets/images/shoes.png',height: 250,width: MediaQuery.of(context).size.width*0.75,fit: BoxFit.fill,)),
                 ),
                   ),
                   const Positioned(
-                      right: 7.1,
-                      top: 10,
-                      child: Icon(Icons.share_outlined,size: 29,color: Colors.black,)),
+                      right: 1.1,
+                      top: 1,
+                      child: Icon(CupertinoIcons.share,size: 26,color: Colors.black,)),
                   const Positioned(
                       bottom: 9,
-                      left: 6,
-                      child: Icon(Icons.favorite_outline,size:28 ,)),
+                      left: 1,
+                      child: Icon(Icons.favorite_outline,size:26 ,)),
                 ],
               ),
               const SizedBox(
                 height: 10,
               ),
-              Text("Size : ${sizeSelected??""}",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 17.5,fontWeight: FontWeight.bold),),
+              Text("Size : ${sizeSelected??""}",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 15.5,fontWeight: FontWeight.bold),),
               Sizes().shoeSize(),
               const SizedBox(height: 2,),
-              ProductRates().getRate(5999, 58.09,25),
+              ProductRates().getRate(5999, 58.09,24),
               const SizedBox(height: 2,),
               const SizedBox(height: 15,),
               RichText(text: TextSpan(
@@ -207,8 +207,8 @@ class _ProductPageState extends State<ProductPage> {
                       borderRadius: BorderRadius.circular(33),
                       color: Colors.yellow.shade900,
                     ),
-                    height: 50,
-                    width: MediaQuery.of(context).size.width*0.80,
+                    height: 45,
+                    width: MediaQuery.of(context).size.width*0.70,
                     alignment: Alignment.center,
                     child:Text("Add to Cart",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 16.5,fontWeight: FontWeight.bold),)
                 ),
@@ -221,8 +221,8 @@ class _ProductPageState extends State<ProductPage> {
                       borderRadius: BorderRadius.circular(33),
                       color: Colors.yellowAccent.shade700,
                     ),
-                    height: 50,
-                    width: MediaQuery.of(context).size.width*0.80,
+                    height: 45,
+                    width: MediaQuery.of(context).size.width*0.70,
                     alignment: Alignment.center,
                     child:Text("Buy it Now",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 16.5,fontWeight: FontWeight.bold),)
                 ),
@@ -235,7 +235,7 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ),
               Text("Recommended Products :",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.w700,
-                  fontSize: 17),),
+                  fontSize: 16.6),),
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
                 height: 240,

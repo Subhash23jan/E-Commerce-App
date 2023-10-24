@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
         controller: _pagecontroller,
         physics: const NeverScrollableScrollPhysics(),
         children: const [
-         // ProductPage(productId: "productId"),
+          ProductPage(productId: "productId"),
           HomepageScreen(),
           OptionalBottomSheet(),
           UserProfile(),
@@ -75,20 +75,20 @@ class _MainPageState extends State<MainPage> {
         unselectedItemColor: Colors.white,
         showUnselectedLabels: true,
         showSelectedLabels: true,
-        unselectedIconTheme: const IconThemeData(color: Colors.white),
-        selectedIconTheme: const IconThemeData(size: 34,color: Colors.blue),
-        unselectedLabelStyle: const TextStyle(color: Colors.white70,fontSize: 14),
-        selectedLabelStyle: const TextStyle(color: Colors.white70,fontSize: 17,fontWeight: FontWeight.bold),
+        unselectedIconTheme: const IconThemeData(color: Colors.white,size: 21),
+        selectedIconTheme: const IconThemeData(size: 25,color: Colors.blue),
+        unselectedLabelStyle: const TextStyle(color: Colors.white70,fontSize: 13),
+        selectedLabelStyle: const TextStyle(color: Colors.white70,fontSize: 14.5,fontWeight: FontWeight.bold),
         onTap: (value) {
           setState(() {
             _pageIndex=value;
             _pagecontroller.jumpToPage(value);
           });
         },
-          iconSize: 28,
+          iconSize: 21,
           items: const [
-            BottomNavigationBarItem(icon:Icon(CupertinoIcons.home,size: 23,),label:'Home',),
-            BottomNavigationBarItem(icon:Icon(Icons.ads_click,size: 23,),label: 'More'),
+            BottomNavigationBarItem(icon:Icon(CupertinoIcons.home,),label:'Home',),
+            BottomNavigationBarItem(icon:Icon(Icons.ads_click,),label: 'More'),
             BottomNavigationBarItem(icon:Icon(CupertinoIcons.person),label: 'You'),
             BottomNavigationBarItem(icon:Icon(CupertinoIcons.cart),label: 'Cart',)
           ]),
