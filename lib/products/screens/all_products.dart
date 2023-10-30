@@ -1,4 +1,5 @@
 import 'package:amazon_clone_flutter/products/widgets/product_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,96 +18,133 @@ class _AllProductsState extends State<AllProducts> {
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: GlobalVariables.backgroundColor,
-      appBar: PreferredSize(
-        preferredSize:const Size.fromHeight(66),
-        child: Container(
-          decoration: const BoxDecoration(
-              gradient: GlobalVariables.appBarGradient
-          ),
-          child: Column(
-            mainAxisAlignment:MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(
-                height: 30,
+        appBar: PreferredSize(
+          preferredSize:const Size.fromHeight(86),
+          child: Container(
+              padding: const EdgeInsets.only(top: 35,bottom: 5),
+              decoration: const BoxDecoration(
+                  gradient: GlobalVariables.appBarGradient
               ),
-              Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                    color: Colors.white,
-                    width:300,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.white,
+                    ),
+
+                    width:360,
                     child: TextFormField(
                       controller: searchController,
+                      onFieldSubmitted: (value) {
+
+                      },
                       textAlign: TextAlign.start,
-                      decoration: const InputDecoration(
+                      decoration:   InputDecoration(
                           border: InputBorder.none,
-                          suffixIcon:Icon(Icons.camera_enhance_outlined,color: Colors.grey,size: 28,),
-                          prefixIcon:Icon(Icons.search,color: Colors.grey,size: 32,),
+                          suffixIcon:SizedBox(
+                            width: 100,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                    onTap: () {
+
+                                    },
+                                    child: const Icon(CupertinoIcons.camera,color: Colors.grey,size: 22.5,)),
+                                InkWell(
+                                    onTap: () {
+
+                                    },
+                                    child: const Icon(Icons.keyboard_voice,color: Colors.grey,size: 23,)),
+
+                              ],
+                            ),
+                          ),
+                          prefixIcon:const Icon(Icons.search,color: Colors.grey,size: 26,),
                           hintText: "Search in Amazon.in",
-                          hintStyle: TextStyle(color: Colors.black54,fontWeight: FontWeight.w500,fontSize: 18)
+                          hintStyle: TextStyle(color: Colors.black54,fontWeight: FontWeight.w500,fontSize: 14)
                       ),
                     ),
                   ),
-                  const Icon(Icons.keyboard_voice_rounded,color: Colors.black,size: 31,)
                 ],
-              ),
-            ],
+              )
           ),
         ),
-      ),
       body:  Container(
-        margin: const EdgeInsets.only(left: 10,right: 5),
+        margin: const EdgeInsets.only(left: 10,right: 5,top: 5),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Choose what you want!!!",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 19),),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Type of products",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.red,fontSize: 19),),
-                  const SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ProductWidget(),
-                        ProductWidget(),
-                        ProductWidget(),
-                      ],
+              Text("Choose What You Want..!!!",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 19),),
+              Container(
+                padding: const EdgeInsets.only(bottom: 8),
+                decoration:  BoxDecoration(
+                  color: Colors.grey.shade100,
+                  border:Border(bottom: BorderSide(color: Colors.black,width: 1))
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Type of products",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.red,fontSize: 17),),
+                    const SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ProductWidget(productId: "653df7a39f565b003158d274")
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Type of products",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.red,fontSize: 19),),
-                  const SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ProductWidget(),
-                        ProductWidget(),
-                      ],
+              Container(
+                padding: const EdgeInsets.only(bottom: 8),
+                decoration:  BoxDecoration(
+                    color: Colors.grey.shade100,
+                    border:const Border(bottom: BorderSide(color: Colors.black,width: 1))
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Type of products",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.red,fontSize: 17),),
+                    const SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          // ProductWidget(),
+                          // ProductWidget(),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Type of products",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.red,fontSize: 19),),
-                  const SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ProductWidget(),
-                        ProductWidget(),
-                      ],
+              Container(
+                padding: const EdgeInsets.only(bottom: 8),
+                decoration:  BoxDecoration(
+                    color: Colors.grey.shade100,
+                    border:const Border(bottom: BorderSide(color: Colors.black,width: 1))
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Type of products",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.red,fontSize: 19),),
+                    const SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          // ProductWidget(),
+                          // ProductWidget(),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

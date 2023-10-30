@@ -1,9 +1,12 @@
+import 'package:amazon_clone_flutter/Screens/AuthPages/sign_in.dart';
+import 'package:amazon_clone_flutter/Screens/AuthPages/sign_up.dart';
 import 'package:amazon_clone_flutter/pages/Profile/screens/profile.dart';
 import 'package:amazon_clone_flutter/pages/Cart/screens/cart_page.dart';
 import 'package:amazon_clone_flutter/pages/more_bottom_sheet.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/screens/home_screen_page.dart';
 import 'package:amazon_clone_flutter/pages/Profile/screens/sample.dart';
-import 'package:amazon_clone_flutter/pages/homeScreen/screens/product_screen.dart';
+import 'package:amazon_clone_flutter/pages/homeScreen/screens/product_page.dart';
+import 'package:amazon_clone_flutter/products/screens/all_products.dart';
 import 'package:amazon_clone_flutter/provider/user_provider.dart';
 import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/cupertino.dart';
@@ -57,7 +60,9 @@ class _MainPageState extends State<MainPage> {
         physics: const NeverScrollableScrollPhysics(),
         children: const [
          // ProductPage(productId: "productId"),
-          HomepageScreen(),
+           HomepageScreen(),
+         //  SignInPage(),
+        //  AllProducts(),
           OptionalBottomSheet(),
           UserProfile(),
           CartPage()
@@ -75,20 +80,20 @@ class _MainPageState extends State<MainPage> {
         unselectedItemColor: Colors.white,
         showUnselectedLabels: true,
         showSelectedLabels: true,
-        unselectedIconTheme: const IconThemeData(color: Colors.white),
-        selectedIconTheme: const IconThemeData(size: 34,color: Colors.blue),
-        unselectedLabelStyle: const TextStyle(color: Colors.white70,fontSize: 14),
-        selectedLabelStyle: const TextStyle(color: Colors.white70,fontSize: 17,fontWeight: FontWeight.bold),
+        unselectedIconTheme: const IconThemeData(color: Colors.white,size: 21),
+        selectedIconTheme: const IconThemeData(size: 25,color: Colors.blue),
+        unselectedLabelStyle: const TextStyle(color: Colors.white70,fontSize: 13),
+        selectedLabelStyle: const TextStyle(color: Colors.white70,fontSize: 14.5,fontWeight: FontWeight.bold),
         onTap: (value) {
           setState(() {
             _pageIndex=value;
             _pagecontroller.jumpToPage(value);
           });
         },
-          iconSize: 28,
+          iconSize: 21,
           items: const [
-            BottomNavigationBarItem(icon:Icon(CupertinoIcons.home,size: 23,),label:'Home',),
-            BottomNavigationBarItem(icon:Icon(Icons.ads_click,size: 23,),label: 'More'),
+            BottomNavigationBarItem(icon:Icon(CupertinoIcons.home,),label:'Home',),
+            BottomNavigationBarItem(icon:Icon(Icons.ads_click,),label: 'More'),
             BottomNavigationBarItem(icon:Icon(CupertinoIcons.person),label: 'You'),
             BottomNavigationBarItem(icon:Icon(CupertinoIcons.cart),label: 'Cart',)
           ]),

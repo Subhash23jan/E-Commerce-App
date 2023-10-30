@@ -9,7 +9,9 @@ class UserProvider extends ChangeNotifier{
     password: '',
     address: '',
     userType: '',
-    cart:[], orders: [], favourites: []
+    cart:[],
+      orders:[],
+      favourites: []
   );
   UserModel get user=>_user;
   void setUser(String user)

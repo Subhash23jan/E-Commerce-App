@@ -77,7 +77,7 @@ class AuthService {
           res: response,
           context: context,
           onSuccess: () async {
-            print("staage 4");
+            print("stage 4");
             showSnackBar('login successfully', context);
             await prefs.setString("email", email);
             await prefs.setString("password", password);
@@ -89,7 +89,8 @@ class AuthService {
             ));
           });
     } catch (e) {
-      print("staage 5");
+      print("stage 5");
+      print(e.toString());
       showSnackBar(e.toString(), context);
     }
   }

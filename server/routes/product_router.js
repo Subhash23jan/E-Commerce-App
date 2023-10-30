@@ -7,8 +7,8 @@ const Product = require('../models/product');
 
 
 //to get perticular product
-productRouter.get('/api/product/:name', async (req, res) => {
-    const productId = req.body.id;
+productRouter.get('/api/product/:id', async (req, res) => {
+    const productId = req.params.id;
     const product = await Product.findOne({
         _id:productId
     });
@@ -20,29 +20,58 @@ productRouter.get('/api/product/:name', async (req, res) => {
 
 
 //to find similiar products
-productRouter.get("/api/product/:name/similar-products", async (req, res) => {
-    
+productRouter.post("/api/product/similar-products", async (req, res) => {
     const productType = req.body.productType;
-const productList = [];
+    const productList = [];
 
-
-
-const promises = productType.map(async (element) => {
-    const products = await Product.find({ productType: { $in: [element] } });
-    products.forEach((product) => {
-        productList.push(product);
+    if (productType != null) {
+        const promises = productType.map(async (element) => {
+        const products = await Product.find({ productType: { $in: [element] } });
+        products.forEach((product) => {  productList.push(product); });
         });
+        Promise.all(promises)
+            .then(() => {
+                // to get unique elements
+                const products = sort.uniqWith(productList, sort.isEqual);
+                return res.json({ products });
+        })
+        .catch((err) => {
+            console.log('Error occurred:', err);
+            return res.status(400).json({ msg: err });
+        });
+    }
+    else
+        return res.status(400).json({ msg: 'Error occurred! Something went wrong?' });
 });
-    Promise.all(promises)
-        .then(() => {
-            const products = sort.uniqWith(productList, sort.isEqual);
-        return res.json({ products });
-    })
-    .catch((err) => {
+//get products on search
+productRouter.get('/api/search/:query', async (req, res) => {
+    
+    const query = req.params.query;
+    const words = query.split(' ');
+    const List = [];
+    const productList = [];
+    for (const word of words) {
+        List.push(word);
+    }
+    const promises = List.map(async (element) => {
+        const products= await Product.find({
+            $or: [
+                { productType: { $in: [element] } },
+                { name: element }
+            ]
+        })
+        products.forEach((product) => {
+           productList.push(product);
+        });
+    });
+    Promise.all(promises).then(() => {
+        const products = sort.uniqWith(productList, sort.isEqual);
+            return res.json({ products });
+    }).catch((err) => {
         console.log('Error occurred:', err);
         return res.json({ msg: 'Error occurred! Something went wrong?' });
     });
-});
 
+});
 
 module.exports = productRouter;

@@ -36,12 +36,12 @@ Container cartItem()
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Sachin Tendulkar",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),softWrap: true,),
-                Text("by Sachin Tendulkar",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),),
-                Text("Paper back",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),),
-                Text("₹250.00",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15),),
-                Text("eligible for free shipping!!!",style: GoogleFonts.aBeeZee(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 15),),
-                Text("in stock",style: GoogleFonts.aBeeZee(color: Colors.cyan.shade700,fontWeight: FontWeight.bold,fontSize: 15),),
-                Text("10 days Replacement",style: GoogleFonts.aBeeZee(color: Colors.cyan.shade700,fontWeight: FontWeight.bold,fontSize: 15),),
+                Text("by Sachin Tendulkar",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15.5,fontStyle: FontStyle.italic),),
+                Text("Paper back",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15),),
+                Text("₹250.00",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14.5),),
+                Text("eligible for free shipping!!",style: GoogleFonts.aBeeZee(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 14.5),),
+                Text("in stock",style: GoogleFonts.aBeeZee(color: Colors.cyan.shade700,fontWeight: FontWeight.bold,fontSize: 14.5),),
+                Text("10 days Replacement",style: GoogleFonts.aBeeZee(color: Colors.cyan.shade700,fontWeight: FontWeight.bold,fontSize: 14.5),),
               ],
             )
           ],

@@ -1,8 +1,14 @@
+import 'dart:convert';
+import 'dart:ui';
+
+import 'package:amazon_clone_flutter/constants/error_handling.dart';
 import 'package:amazon_clone_flutter/flutter_classes/rate_classes.dart';
 import 'package:amazon_clone_flutter/flutter_classes/size_classes.dart';
+import 'package:amazon_clone_flutter/models/product_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -21,6 +27,14 @@ class _ProductPageState extends State<ProductPage> {
   String formattedDate = DateFormat('EEEE , dd MMMM').format(DateTime.now());
   final searchController=TextEditingController();
   int ?sizeSelected;
+  ProductModel ? productModel;
+  List<ProductModel>  recommended=[];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getProduct(widget.productId);
+  }
   @override
   Widget build(BuildContext context) {
     int? quantity=1;
@@ -62,7 +76,7 @@ class _ProductPageState extends State<ProductPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(Icons.camera_enhance_outlined,color: Colors.grey,size: 24,),
+                                Icon(CupertinoIcons.camera,color: Colors.grey,size: 24,),
                                 Icon(Icons.keyboard_voice,color: Colors.grey,size: 24,),
 
                               ],
@@ -78,21 +92,25 @@ class _ProductPageState extends State<ProductPage> {
               )
         ),
       ),
-      body: SingleChildScrollView(
+      body: productModel==null?const Center(child: CircularProgressIndicator(color: Colors.blue,)):SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
           color: CupertinoColors.tertiarySystemBackground,
-          margin: const EdgeInsets.symmetric(horizontal: 5),
-          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 12),
+          margin: const EdgeInsets.symmetric(horizontal: 0),
+          padding: const EdgeInsets.only(left: 8,top: 1,bottom: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Red Tape Men's Sneakers",style: GoogleFonts.aBeeZee(color: Colors.grey.shade700,fontSize: 18.5),),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8,top: 8),
+                child: Text(productModel!.name,style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 17.5,fontWeight: FontWeight.w700,
+                  decorationStyle: TextDecorationStyle.solid,)),
+              ),
               Stack(
                 children: [
                   Positioned(
                     child: Container(
-                      decoration: const BoxDecoration(
+                      decoration:  const BoxDecoration(
                           color: Colors.white12,
                         border:Border(
                           bottom: BorderSide(
@@ -102,30 +120,31 @@ class _ProductPageState extends State<ProductPage> {
                         )
                       ),
                     alignment: Alignment.center,
-                    height: 290,
+                    height: 260,
                     width: MediaQuery.of(context).size.width,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                        child: Image.asset('assets/images/shoes.png',height: 250,width: MediaQuery.of(context).size.width*0.8,fit: BoxFit.fill,)),
+                      borderRadius: BorderRadius.circular(18),
+
+                        child: Image.network(productModel!.url,height: 250,width: MediaQuery.of(context).size.width*0.75,fit: BoxFit.fill,)),
                 ),
                   ),
                   const Positioned(
-                      right: 7.1,
-                      top: 10,
-                      child: Icon(Icons.share_outlined,size: 29,color: Colors.black,)),
+                      right: 1.1,
+                      top: 1,
+                      child: Icon(CupertinoIcons.share,size: 26,color: Colors.black,)),
                   const Positioned(
                       bottom: 9,
-                      left: 6,
-                      child: Icon(Icons.favorite_outline,size:28 ,)),
+                      left: 1,
+                      child: Icon(Icons.favorite_outline,size:26 ,)),
                 ],
               ),
               const SizedBox(
                 height: 10,
               ),
-              Text("Size : ${sizeSelected??""}",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 17.5,fontWeight: FontWeight.bold),),
+              Text("Size : ${sizeSelected??""}",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 15.5,fontWeight: FontWeight.bold),),
               Sizes().shoeSize(),
               const SizedBox(height: 2,),
-              ProductRates().getRate(5999, 58.09,25),
+              ProductRates().getRate(productModel!.price*1.2.toDouble(), 58.09,24),
               const SizedBox(height: 2,),
               const SizedBox(height: 15,),
               RichText(text: TextSpan(
@@ -207,8 +226,8 @@ class _ProductPageState extends State<ProductPage> {
                       borderRadius: BorderRadius.circular(33),
                       color: Colors.yellow.shade900,
                     ),
-                    height: 50,
-                    width: MediaQuery.of(context).size.width*0.80,
+                    height: 45,
+                    width: MediaQuery.of(context).size.width*0.70,
                     alignment: Alignment.center,
                     child:Text("Add to Cart",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 16.5,fontWeight: FontWeight.bold),)
                 ),
@@ -221,8 +240,8 @@ class _ProductPageState extends State<ProductPage> {
                       borderRadius: BorderRadius.circular(33),
                       color: Colors.yellowAccent.shade700,
                     ),
-                    height: 50,
-                    width: MediaQuery.of(context).size.width*0.80,
+                    height: 45,
+                    width: MediaQuery.of(context).size.width*0.70,
                     alignment: Alignment.center,
                     child:Text("Buy it Now",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 16.5,fontWeight: FontWeight.bold),)
                 ),
@@ -235,22 +254,64 @@ class _ProductPageState extends State<ProductPage> {
                 ),
               ),
               Text("Recommended Products :",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.w700,
-                  fontSize: 17),),
-              Container(
+                  fontSize: 16.6),),
+              recommended.isEmpty?const CircularProgressIndicator(color: Colors.blue,):Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
                 height: 240,
-                child: ListView.builder(
+                child:ListView.separated(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: recommended.length,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const SizedBox(width: 16.0); // Replace this with the desired separator width.
+                  },
                   itemBuilder: (context, index) {
-                  return  const ProductWidget();
-                },),
+                    return ProductWidget(productId: recommended[index].id);
+                  },
+                )
+
               )
             ],
           ),
         ),
       ),
     );
+  }
+
+  void getProduct(String productId) async{ 
+    http.Response res=await http.get(Uri.parse("${uri}api/product/$productId"));
+    httpErrorHandle(res: res, context: context, onSuccess: () {
+      productModel=ProductModel.fromJson(jsonDecode(res.body)['product']);
+      setState(() {});
+    },);
+    if(productModel!=null){
+      getRecommended(productModel!.productType);
+    }
+  }
+
+  Future<List<ProductModel>> getRecommended(List<String> productType) async{
+    List<ProductModel>list=[];
+    print(productType);
+    Map<String, dynamic> jsonMap = {'productType': productType};
+    String jsonBody = json.encode(jsonMap); // Convert the JSON object to a string
+    http.Response  res = await http.post(
+      Uri.parse("${uri}api/product/similar-products/"),
+      headers: {'Content-Type': 'application/json'}, // Set the content type
+      body: jsonBody, // Send the JSON string as the body
+    );
+
+    if(context.mounted){
+      httpErrorHandle(res: res, context: context, onSuccess: () async {
+        // print(json.decode(res.body)['products']);
+        List<dynamic> data = await json.decode(res.body)['products'];
+        for (var e in data) {
+          String d=jsonEncode(e);
+          recommended.add(ProductModel.fromJson(e));
+        }
+       // print(recommended.length);
+        setState(() {});
+      },);
+    }
+    return list;
   }
 }

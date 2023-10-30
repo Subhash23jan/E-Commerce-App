@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_fonts:
+  web_socket_channel: ^2.1.0
   intl:
   font_awesome_flutter:
 

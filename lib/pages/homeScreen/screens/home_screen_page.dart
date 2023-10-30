@@ -1,10 +1,14 @@
 import 'package:amazon_clone_flutter/constants/global_variables.dart';
+import 'package:amazon_clone_flutter/constants/utils.dart';
+import 'package:amazon_clone_flutter/pages/homeScreen/screens/product_page.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/widgets/addressBox.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/widgets/corousels.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/widgets/deal_of_the_day.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/widgets/more_options.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/widgets/top_accessories.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/widgets/top_deals.dart';
+import 'package:amazon_clone_flutter/products/screens/all_products.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -42,6 +46,9 @@ class _HomepageScreenState extends State<HomepageScreen> {
                   width:360,
                   child: TextFormField(
                     controller: searchController,
+                    onFieldSubmitted: (value) {
+
+                    },
                     textAlign: TextAlign.start,
                     decoration:   InputDecoration(
                         border: InputBorder.none,
@@ -55,7 +62,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                                 onTap: () {
 
                                 },
-                                  child: const Icon(Icons.camera_enhance_outlined,color: Colors.grey,size: 23,)),
+                                  child: const Icon(CupertinoIcons.camera,color: Colors.grey,size: 22.5,)),
                               InkWell(
                                 onTap: () {
 
@@ -81,7 +88,11 @@ class _HomepageScreenState extends State<HomepageScreen> {
           children:  [
              addressBox(),
             const TopAccessories(),
-            const TopDeals(),
+             InkWell(
+               onTap: () {
+                 Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductPage(productId: "653df7a39f565b003158d274"),));
+               },
+                 child: const TopDeals()),
             const DealOfTheDay(),
             const CarouselItems(),
             Container(
@@ -95,6 +106,12 @@ class _HomepageScreenState extends State<HomepageScreen> {
           ],
         ),
       ),
+      floatingActionButton:FloatingActionButton(
+        elevation: 16,
+
+          onPressed: (){
+          showSnackBar("sorry!! It is not real amazon app..🙅", context);
+          },child: Image.network("https://cdn.icon-icons.com/icons2/2108/PNG/512/amazon_alexa_icon_130998.png"), ),
     );
   }
 }

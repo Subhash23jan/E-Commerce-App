@@ -2,6 +2,7 @@ import 'package:amazon_clone_flutter/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constants/utils.dart';
 import '../../../models/user_model.dart';
 import '../../../provider/user_provider.dart';
 import '../widgets/buy_again.dart';
@@ -31,7 +32,7 @@ class _UserProfileState extends State<UserProfile> {
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(70),
+          preferredSize: const Size.fromHeight(55),
           child: Container(
             decoration: const BoxDecoration(
               gradient: GlobalVariables.appBarGradient
@@ -94,19 +95,11 @@ class _UserProfileState extends State<UserProfile> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 35,
-        backgroundColor: Colors.white,
-        onPressed: () {  },
-        shape:RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40)
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: Image.network("https://beebom.com/wp-content/uploads/2018/01/alexa-featured_750px.png?w=750&quality=75",
-            width:100,height: 80,fit:BoxFit.fill,),
-        ),
-      ),
+      floatingActionButton:FloatingActionButton(
+        elevation: 16,
+        onPressed: (){
+          showSnackBar("sorry!! It is not real amazon app..🙅", context);
+        },child: Image.network("https://cdn.icon-icons.com/icons2/2108/PNG/512/amazon_alexa_icon_130998.png"), ),
     );
   }
 }
