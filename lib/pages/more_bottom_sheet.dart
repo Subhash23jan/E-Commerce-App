@@ -1,6 +1,6 @@
 import 'package:amazon_clone_flutter/main.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/screens/home_screen_page.dart';
-import 'package:amazon_clone_flutter/pages/homeScreen/screens/product_screen.dart';
+import 'package:amazon_clone_flutter/pages/homeScreen/screens/product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 class OptionalBottomSheet extends StatefulWidget {

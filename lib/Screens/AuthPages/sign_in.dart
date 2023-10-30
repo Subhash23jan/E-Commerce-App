@@ -20,32 +20,33 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: false,
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsM6J-2vnHdJrBAgIWG0F3LvFbWDwWGFO-OA&usqp=CAU"), // Replace with your image path
-                fit: BoxFit.cover, // Adjust the fit as needed
-              ),
-            ),
-          ),
+          // Container(
+          //   decoration: const BoxDecoration(
+          //     image: DecorationImage(
+          //       image: NetworkImage(
+          //           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsM6J-2vnHdJrBAgIWG0F3LvFbWDwWGFO-OA&usqp=CAU"), // Replace with your image path
+          //       fit: BoxFit.cover, // Adjust the fit as needed
+          //     ),
+          //   ),
+          // ),
           Container(
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 55,
+                  height: 50,
+                  width: MediaQuery.sizeOf(context).width*0.7,
                   margin: const EdgeInsets.only(left: 25, right: 25, bottom: 5),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(35),
                       color: Colors.cyan),
                   child: TextFormField(
                     controller: emailController,
-                    style: const TextStyle(color: Colors.white, fontSize: 21),
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
                     decoration: const InputDecoration(
                       hintText: 'enter your email',
                       prefixIcon: Icon(Icons.email),
@@ -61,16 +62,17 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
                 Container(
-                  height: 55,
+                  height: 50,
+                  width: MediaQuery.sizeOf(context).width*0.7,
                   margin: const EdgeInsets.only(
-                      left: 25, right: 25, bottom: 5, top: 15),
+                      left: 25, right: 25, bottom: 5, top: 25),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(35),
                       color: Colors.cyan),
                   child: TextFormField(
                     controller: passwordController,
                     obscureText: isHidden,
-                    style: const TextStyle(color: Colors.white, fontSize: 21),
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
                     decoration: InputDecoration(
                       hintText: 'enter your password',
                       prefixIcon: const Icon(Icons.fingerprint),
@@ -105,9 +107,9 @@ class _SignInPageState extends State<SignInPage> {
                       email: emailController.text.toLowerCase(),
                       password: passwordController.text),
                   child: Container(
-                    width: 200,
+                    width: MediaQuery.sizeOf(context).width*0.3,
                     alignment: Alignment.center,
-                    height: 45,
+                    height: 35,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(35),
                         gradient: const LinearGradient(
@@ -124,7 +126,7 @@ class _SignInPageState extends State<SignInPage> {
                     child: const Text(
                       "Login",
                       style: TextStyle(
-                          fontSize: 23,
+                          fontSize: 18,
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     ),

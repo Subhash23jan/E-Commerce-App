@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductRates{
-  Widget getRate(int rate,double offer,double fontSize, {String offerReason = "Great Indian Festival"})
+  Widget getRate(double rate,double offer,double fontSize, {String offerReason = "Great Indian Festival"})
   {
     return SizedBox(
       child: Column(

@@ -1,10 +1,12 @@
 class ProductModel {
   String name;
+  String id;
   String url;
   List<String> productType;
   double price;
 
   ProductModel({
+    required this.id,
     required this.name,
     required this.url,
     required this.productType,
@@ -14,6 +16,7 @@ class ProductModel {
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       name: json['name'],
+      id: json['_id'],
       url: json['url'],
       productType: List<String>.from(json['productType']),
       price: json['price'].toDouble(),
@@ -26,6 +29,7 @@ class ProductModel {
       'url': url,
       'productType': productType,
       'price': price,
+      '_id':id,
     };
   }
 }

@@ -1,9 +1,12 @@
+import 'package:amazon_clone_flutter/Screens/AuthPages/sign_in.dart';
+import 'package:amazon_clone_flutter/Screens/AuthPages/sign_up.dart';
 import 'package:amazon_clone_flutter/pages/Profile/screens/profile.dart';
 import 'package:amazon_clone_flutter/pages/Cart/screens/cart_page.dart';
 import 'package:amazon_clone_flutter/pages/more_bottom_sheet.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/screens/home_screen_page.dart';
 import 'package:amazon_clone_flutter/pages/Profile/screens/sample.dart';
-import 'package:amazon_clone_flutter/pages/homeScreen/screens/product_screen.dart';
+import 'package:amazon_clone_flutter/pages/homeScreen/screens/product_page.dart';
+import 'package:amazon_clone_flutter/products/screens/all_products.dart';
 import 'package:amazon_clone_flutter/provider/user_provider.dart';
 import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,8 +59,10 @@ class _MainPageState extends State<MainPage> {
         controller: _pagecontroller,
         physics: const NeverScrollableScrollPhysics(),
         children: const [
-          ProductPage(productId: "productId"),
-          HomepageScreen(),
+         // ProductPage(productId: "productId"),
+           HomepageScreen(),
+         //  SignInPage(),
+        //  AllProducts(),
           OptionalBottomSheet(),
           UserProfile(),
           CartPage()

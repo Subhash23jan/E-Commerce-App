@@ -7,14 +7,15 @@ const productRouter = require('./server/routes/product_router');
 const DB='mongodb+srv://subhash613d:subhash123@cluster0.wgtypza.mongodb.net/?retryWrites=true&w=majority';
 console.log("subhash");
 const app=express();
-
+const PORT=process.env.PORT || 3000;
+app.set("connection", "close");
 app.use(express.json());
 app.use(authRouter);
 app.use(userRouter);
 app.use(adminRouter);
 app.use(productRouter);
-app.listen(4000,()=>{
-    console.log('connection is successfull');
+app.listen(PORT,()=>{
+    console.log('connection is successful');
 })
 mongoose.connect(DB).then( ()=>{
        console.log('connected to mongoDB');

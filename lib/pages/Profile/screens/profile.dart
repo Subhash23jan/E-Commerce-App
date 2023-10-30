@@ -32,7 +32,7 @@ class _UserProfileState extends State<UserProfile> {
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(70),
+          preferredSize: const Size.fromHeight(55),
           child: Container(
             decoration: const BoxDecoration(
               gradient: GlobalVariables.appBarGradient
