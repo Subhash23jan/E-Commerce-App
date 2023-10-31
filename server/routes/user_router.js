@@ -43,13 +43,12 @@ userRouter.post('/api/user/update/address', async (req, res) => {
 userRouter.put('/api/user/add-cart', async (req, res) => {
     const { email, productId, quantity } = req.body;
     const parsedQuantity = parseInt(quantity);
-  try {
-    const user = await User.findOne({ email });
-
+    try {
+        const user = await User.findOne({ email });
+        console.log(productId);
     if (!user) {
       return res.status(400).json({ msg: 'User not found!!!' });
     }
-
     const cart = user.cart;
     const index = cart.findIndex(cartItem => cartItem.productId === productId);
 
@@ -64,7 +63,6 @@ userRouter.put('/api/user/add-cart', async (req, res) => {
 
     user.cart = cart;
     await user.save();
-
     return res.json({ msg: 'Added to cart...' });
   } catch (error) {
     console.error(error);
@@ -132,8 +130,9 @@ userRouter.put("/api/user/remove-favourite", async (req, res) => {
 
 //to get cart items of perticular user
 userRouter.get('/api/user/cart',async(req, res) => {
-    const { email } = req.body;
-    const user = await User.findOne({email});
+    const email  = req.header('email');
+    console.log(email);
+    const user = await User.findOne({email:{$regex:email,$options:"i"}});
     if (user == null)
         return res.status(500).json({ msg: 'no user exists' });
     return res.json({ cart: user.cart });

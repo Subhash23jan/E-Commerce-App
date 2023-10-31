@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:amazon_clone_flutter/models/cartItem.dart';
+import 'package:amazon_clone_flutter/models/order_model.dart';
+
 class UserModel {
   final String id;
   final String name;
@@ -7,9 +10,6 @@ class UserModel {
   final String password;
   final String address;
   final String userType;
-  final List<dynamic> cart;
-  final List<dynamic> favourites;
-  final List<dynamic> orders;
 
   UserModel({
     required this.id,
@@ -18,9 +18,6 @@ class UserModel {
     required this.password,
     required this.address,
     required this.userType,
-    required this.cart,
-    required this.orders,
-    required this.favourites,
   });
 
   // Serialization: Convert User object to a map
@@ -32,9 +29,6 @@ class UserModel {
       'password': password,
       'address': address,
       'userType': userType,
-      'cart':cart,
-      'favourites':favourites,
-      'orders':orders
     };
   }
 
@@ -47,9 +41,6 @@ class UserModel {
       password: json['password'],
       address: json['address'],
       userType: json['userType'],
-      cart: json['cart'],
-      orders: ['orders'],
-      favourites: ['favourites']
     );
   }
   // String toJson() => json.encode(toMap());

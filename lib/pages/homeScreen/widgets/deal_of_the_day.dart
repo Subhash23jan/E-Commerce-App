@@ -23,7 +23,7 @@ class DealOfTheDay extends StatelessWidget {
               style: GoogleFonts.aBeeZee(color: Colors.black87,fontSize: 15,fontWeight: FontWeight.w700))),
             Center(
               child: InkWell(
-                onTap:()=> Navigator.of(context).push(MaterialPageRoute(builder: (context) => AllProducts(),)),
+                // onTap:()=> Navigator.of(context).push(MaterialPageRoute(builder: (context) => AllProducts(),)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSADfDsdVO4ASoDspLSDg7fqDCmOKQsar8t3RhH5VEMbNgiZVsgN_haIFKtgcQbTBo6dP4&usqp=CAU",
