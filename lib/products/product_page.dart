@@ -1,19 +1,26 @@
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:amazon_clone_flutter/constants/error_handling.dart';
+import 'package:amazon_clone_flutter/constants/utils.dart';
 import 'package:amazon_clone_flutter/flutter_classes/rate_classes.dart';
 import 'package:amazon_clone_flutter/flutter_classes/size_classes.dart';
+import 'package:amazon_clone_flutter/main.dart';
+import 'package:amazon_clone_flutter/models/cartItem.dart';
 import 'package:amazon_clone_flutter/models/product_model.dart';
+import 'package:amazon_clone_flutter/models/user_model.dart';
+import 'package:amazon_clone_flutter/pages/Cart/screens/cart_page.dart';
+import 'package:amazon_clone_flutter/provider/user_provider.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-import '../../../constants/global_variables.dart';
-import '../../../products/widgets/product_widget.dart';
+import '../constants/global_variables.dart';
+import 'widgets/product_widget.dart';
 
 class ProductPage extends StatefulWidget {
   final String productId;
@@ -24,10 +31,22 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
+  final List<String> items = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+  ];
+  String? selectedValue;
+  UserModel ? _user;
   String formattedDate = DateFormat('EEEE , dd MMMM').format(DateTime.now());
   final searchController=TextEditingController();
   int ?sizeSelected;
   ProductModel ? productModel;
+  int quantity=1;
   List<ProductModel>  recommended=[];
   @override
   void initState() {
@@ -37,8 +56,22 @@ class _ProductPageState extends State<ProductPage> {
   }
   @override
   Widget build(BuildContext context) {
-    int? quantity=1;
+    _user=Provider.of<UserProvider>(context).user;
+    selectedValue=quantity.toString();
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        icon: const Icon(CupertinoIcons.cart,color: Colors.yellowAccent,size: 23,),
+        backgroundColor: Colors.redAccent,
+        elevation: 12,
+        onPressed: () {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
+            return const CartPage();
+          },));
+      }, label:Container(
+        alignment: Alignment.center,
+          width: 100,
+          child: Text("Way to Cart",style: GoogleFonts.aBeeZee(fontSize: 17,color: Colors.yellow,fontWeight:FontWeight.bold),)), ),
       appBar: PreferredSize(
         preferredSize:const Size.fromHeight(76),
         child: Container(
@@ -177,59 +210,40 @@ class _ProductPageState extends State<ProductPage> {
               const SizedBox(
                 height: 10,
               ),
-              Card(
-                elevation: 8,
-                shadowColor: Colors.black,
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 1),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.black,width: 1),
-                    color: Colors.grey.shade300,
-                  ),
-                  width: 90,
-                  alignment: AlignmentDirectional.centerEnd,
-                  height: 40,
-                  child:DropdownButton<int>(
-
-                    value: quantity,
-                    iconSize: 33,
-                    style: const TextStyle(fontSize: 18,color: Colors.black,fontWeight: FontWeight.w400),
-                    menuMaxHeight: 200,
-                    borderRadius: BorderRadius.circular(12),
-                    alignment: Alignment.center,
-                    elevation: 16,
-                    icon:const Align(
-                      alignment: AlignmentDirectional.centerEnd,
-                      child: Icon(Icons.arrow_drop_down_sharp,color: Colors.black,),
-                    ),
-                    items:<int>[1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17,18,19,20]
-                        .map<DropdownMenuItem<int>>((int value) {
-                      return DropdownMenuItem<int>(
-                        alignment: Alignment.center,
-                        value: value, child: Text(value.toString(),textAlign: TextAlign.center),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        quantity=value;
-                      });
-                    },
-                  )
-                ),
-              ),
+              selectItemCount(context),
               Align(
                 alignment: Alignment.center,
-                child: Container(
-                    margin: const EdgeInsets.only(top: 25,bottom: 5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(33),
-                      color: Colors.yellow.shade900,
-                    ),
-                    height: 45,
-                    width: MediaQuery.of(context).size.width*0.70,
-                    alignment: Alignment.center,
-                    child:Text("Add to Cart",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 16.5,fontWeight: FontWeight.bold),)
+                child: InkWell(
+                  onTap: () async {
+                    print(quantity);
+                    CartItem item=CartItem(quantity,widget.productId,_user!.email);
+                    if (kDebugMode) {
+                      print(_user!.email);
+                    }
+                    http.Response res=await http.put(
+                        Uri.parse('${uri}api/user/add-cart'),
+                      headers: {'Content-Type': 'application/json'},
+                      body:jsonEncode(item),
+                    );
+                    if(context.mounted){
+                      httpErrorHandle(res: res, context: context, onSuccess: () {
+                        quantity=1;
+                        showSnackBar(jsonDecode(res.body)['msg'], context);
+                        setState(() {});
+                      },);
+                    }
+                  },
+                  child: Container(
+                      margin: const EdgeInsets.only(top: 25,bottom: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(33),
+                        color: Colors.yellow.shade900,
+                      ),
+                      height: 45,
+                      width: MediaQuery.of(context).size.width*0.70,
+                      alignment: Alignment.center,
+                      child:Text("Add to Cart",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 16.5,fontWeight: FontWeight.bold),)
+                  ),
                 ),
               ),
               Align(
@@ -258,8 +272,10 @@ class _ProductPageState extends State<ProductPage> {
               recommended.isEmpty?const CircularProgressIndicator(color: Colors.blue,):Container(
                 margin: const EdgeInsets.symmetric(horizontal: 8,vertical: 8),
                 height: 240,
+                width:((170*recommended.length)+10).toDouble(),
                 child:ListView.separated(
-                  shrinkWrap: true,
+                  shrinkWrap:false,
+                  physics:  ScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: recommended.length,
                   separatorBuilder: (BuildContext context, int index) {
@@ -280,10 +296,12 @@ class _ProductPageState extends State<ProductPage> {
 
   void getProduct(String productId) async{ 
     http.Response res=await http.get(Uri.parse("${uri}api/product/$productId"));
-    httpErrorHandle(res: res, context: context, onSuccess: () {
-      productModel=ProductModel.fromJson(jsonDecode(res.body)['product']);
-      setState(() {});
-    },);
+    if(context.mounted){
+      httpErrorHandle(res: res, context: context, onSuccess: () {
+        productModel=ProductModel.fromJson(jsonDecode(res.body)['product']);
+        setState(() {});
+      },);
+    }
     if(productModel!=null){
       getRecommended(productModel!.productType);
     }
@@ -305,7 +323,6 @@ class _ProductPageState extends State<ProductPage> {
         // print(json.decode(res.body)['products']);
         List<dynamic> data = await json.decode(res.body)['products'];
         for (var e in data) {
-          String d=jsonEncode(e);
           recommended.add(ProductModel.fromJson(e));
         }
        // print(recommended.length);
@@ -313,5 +330,75 @@ class _ProductPageState extends State<ProductPage> {
       },);
     }
     return list;
+  }
+  DropdownButtonHideUnderline selectItemCount(BuildContext context){
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2<String>(
+
+        hint: Text("1"),
+
+        items: items
+            .map((String item) => DropdownMenuItem<String>(
+          value: item,
+          child: Text(
+            item,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ))
+            .toList(),
+        value: selectedValue,
+        onChanged: (String? value) {
+          setState(() {
+            selectedValue = value;
+            quantity=int.parse(selectedValue!);
+          });
+        },
+        buttonStyleData: ButtonStyleData(
+          height: 45,
+          width: 85,
+          padding: const EdgeInsets.only(left: 14, right: 14),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+              color: Colors.black26,
+            ),
+            color: Colors.redAccent,
+          ),
+          elevation: 2,
+        ),
+        iconStyleData: const IconStyleData(
+          icon: Icon(
+            CupertinoIcons.sort_down_circle_fill
+          ),
+          iconSize: 18,
+          iconEnabledColor: Colors.yellow,
+          iconDisabledColor: Colors.grey,
+        ),
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          useSafeArea: true,
+          width: 85,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            color: Colors.redAccent,
+          ),
+          offset: const Offset(-20, 0),
+          scrollbarTheme: ScrollbarThemeData(
+            radius: const Radius.circular(40),
+            thickness: MaterialStateProperty.all<double>(6),
+            thumbVisibility: MaterialStateProperty.all<bool>(true),
+          ),
+        ),
+        menuItemStyleData: const MenuItemStyleData(
+          height: 40,
+          padding: EdgeInsets.only(left: 14, right: 14),
+        ),
+      ),
+    );
   }
 }

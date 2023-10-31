@@ -1,7 +1,7 @@
 import 'package:amazon_clone_flutter/constants/global_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:intl/intl.dart';
 import '../../../constants/utils.dart';
 import '../../../models/user_model.dart';
 import '../../../provider/user_provider.dart';
@@ -19,17 +19,18 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  late UserModel ? _user;
+   UserModel ? _user;
    @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      _user=Provider.of<UserProvider>(context,listen: false).user;
+
     });
   }
   @override
   Widget build(BuildContext context) {
-
+    _user=Provider.of<UserProvider>(context,listen: false).user;
+    print(_user!.email);
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(55),
@@ -76,11 +77,11 @@ class _UserProfileState extends State<UserProfile> {
               Padding(
                 padding: const EdgeInsets.only(left: 15,top: 8,bottom: 5),
                 child: RichText(
-                    text: const TextSpan(
+                    text:  TextSpan(
                   children: [
-                    TextSpan(text: "Hello  ",style:TextStyle(color: Colors.black),
+                    TextSpan(text: "Hello  ",style:const TextStyle(color: Colors.black),
                       children: [
-                        TextSpan(text:"Subhash",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontStyle: FontStyle.italic))
+                        TextSpan(text:toBeginningOfSentenceCase("${_user?.email}"),style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black))
                       ]
                     )
                   ]

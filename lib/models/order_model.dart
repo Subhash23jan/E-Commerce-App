@@ -1,5 +1,4 @@
 
-import 'dart:convert';
 
 import 'order_product.dart';
 class Order {
@@ -25,5 +24,12 @@ class Order {
       'products': products.map((product) => product.toJson()).toList(),
       'date': date.toIso8601String(),
     };
+  }
+  static List<Order> fromJsonToOrderList(List<Map<String, dynamic>> list) {
+    List<Order>orderItems=[];
+    for(Map<String,dynamic> item in list){
+      orderItems.add(Order.fromJson(item));
+    }
+    return orderItems;
   }
 }

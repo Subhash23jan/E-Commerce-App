@@ -1,6 +1,6 @@
 import 'package:amazon_clone_flutter/constants/global_variables.dart';
 import 'package:amazon_clone_flutter/constants/utils.dart';
-import 'package:amazon_clone_flutter/pages/homeScreen/screens/product_page.dart';
+import 'package:amazon_clone_flutter/products/product_page.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/widgets/addressBox.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/widgets/corousels.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/widgets/deal_of_the_day.dart';
@@ -107,11 +107,13 @@ class _HomepageScreenState extends State<HomepageScreen> {
         ),
       ),
       floatingActionButton:FloatingActionButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         elevation: 16,
-
           onPressed: (){
           showSnackBar("sorry!! It is not real amazon app..🙅", context);
-          },child: Image.network("https://cdn.icon-icons.com/icons2/2108/PNG/512/amazon_alexa_icon_130998.png"), ),
+          },child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+          child: Image.network("https://cdn.icon-icons.com/icons2/2108/PNG/512/amazon_alexa_icon_130998.png",width: 120,height: 120,)), ),
     );
   }
 }

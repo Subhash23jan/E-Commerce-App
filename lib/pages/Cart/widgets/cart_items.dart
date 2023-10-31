@@ -1,11 +1,16 @@
 
+import 'package:amazon_clone_flutter/models/cartItem.dart';
+import 'package:amazon_clone_flutter/models/product_model.dart';
+import 'package:amazon_clone_flutter/products/screens/all_products.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/global_variables.dart';
-Container cartItem()
+import '../../../products/product_page.dart';
+Container cartProduct(  BuildContext context,ProductModel productModel,CartItem cartItem)
 {
   return Container(
+    height: 310,
     color: GlobalVariables.greyBackgroundColor.withOpacity(0.1),
     child: Column(
       children: [
@@ -17,32 +22,37 @@ Container cartItem()
               width: 200,
               child: Stack(
                 children: [
-                  // Positioned(child:Transform.scale(
-                  //   scale: 1.3,
-                  //   child: Checkbox(
-                  //     activeColor: Colors.blue,
-                  //     value: true, onChanged:(val){},checkColor: Colors.white,),
-                  // ),),
                   Positioned(top: 28,left: 20,
                       child: SizedBox(
                           width: 160,height: 180,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
-                              child: Image.network("https://m.media-amazon.com/images/I/91L1cOyTQmL._AC_UF1000,1000_QL80_.jpg",fit: BoxFit.fill,)))),
+                              child: InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductPage(productId:productModel.id),));
+                                  },
+                                  child: Image.network(productModel.url,fit: BoxFit.fill,))))),
                 ],
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Sachin Tendulkar",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),softWrap: true,),
-                Text("by Sachin Tendulkar",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15.5,fontStyle: FontStyle.italic),),
-                Text("Paper back",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15),),
-                Text("₹250.00",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14.5),),
-                Text("eligible for free shipping!!",style: GoogleFonts.aBeeZee(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 14.5),),
-                Text("in stock",style: GoogleFonts.aBeeZee(color: Colors.cyan.shade700,fontWeight: FontWeight.bold,fontSize: 14.5),),
-                Text("10 days Replacement",style: GoogleFonts.aBeeZee(color: Colors.cyan.shade700,fontWeight: FontWeight.bold,fontSize: 14.5),),
-              ],
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(productModel.name,
+                    style: GoogleFonts.aBeeZee(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                    maxLines: 2, // Increase the maxLines to the number of lines you want to display
+                  ),
+                  Text("",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize:10,fontStyle: FontStyle.italic),),
+                  Text("₹${productModel.price}",style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14.5),),
+                  Text("eligible for free shipping!!",style: GoogleFonts.aBeeZee(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 14.5),overflow: TextOverflow.ellipsis,maxLines: 1,),
+                  Text("in stock",style: GoogleFonts.aBeeZee(color: Colors.cyan.shade700,fontWeight: FontWeight.bold,fontSize: 14.5),),
+                  Text("10 days Replacement",style: GoogleFonts.aBeeZee(color: Colors.cyan.shade700,fontWeight: FontWeight.bold,fontSize: 14.5),overflow: TextOverflow.ellipsis,maxLines: 1,),
+                ],
+              ),
             )
           ],
         ),
@@ -79,7 +89,7 @@ Container cartItem()
                       color: Colors.white,
 
                     ),
-                    child: const Text("1",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
+                    child:  Text("${cartItem.quantity}",style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
                   ),
                   Container(
                     width: 50,
@@ -136,23 +146,26 @@ Container cartItem()
             ),
           ],
         ),
-        Container(
-          margin: const EdgeInsets.only(top: 18,left: 13.5),
-          width: 160,
-          height: 33,
-          decoration:BoxDecoration(
-            color: Colors.white,
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0, 1.8),
-                blurRadius: 1.5,
-                spreadRadius: 0.1,
-              ),
-            ],
-            borderRadius: BorderRadius.circular(8),
+        InkWell(
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AllProducts(productType:productModel.productType),)),
+          child: Container(
+            margin: const EdgeInsets.only(top: 18,left: 13.5),
+            width: 160,
+            height: 33,
+            decoration:BoxDecoration(
+              color: Colors.white,
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(0, 1.8),
+                  blurRadius: 1.5,
+                  spreadRadius: 0.1,
+                ),
+              ],
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child:  Center(child: Text("See more like this",style: GoogleFonts.openSans(fontSize: 14.5,fontWeight: FontWeight.w700),)),
           ),
-          child:  Center(child: Text("See more like this",style: GoogleFonts.openSans(fontSize: 14.5,fontWeight: FontWeight.w700),)),
         ),
       ],
     ),

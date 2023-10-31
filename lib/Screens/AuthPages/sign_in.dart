@@ -2,7 +2,10 @@ import 'package:amazon_clone_flutter/Screens/AuthPages/sign_up.dart';
 import 'package:amazon_clone_flutter/main.dart';
 import 'package:amazon_clone_flutter/services/auth_services.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../constants/utils.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -12,10 +15,16 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  final authSerice = AuthService();
+  final authService = AuthService();
   bool isHidden = true;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +111,7 @@ class _SignInPageState extends State<SignInPage> {
                   height: 15,
                 ),
                 InkWell(
-                  onTap: () => authSerice.signInUser(
+                  onTap: () => authService.signInUser(
                       context: context,
                       email: emailController.text.toLowerCase(),
                       password: passwordController.text),

@@ -1,14 +1,10 @@
-import 'package:amazon_clone_flutter/Screens/AuthPages/sign_in.dart';
-import 'package:amazon_clone_flutter/Screens/AuthPages/sign_up.dart';
+
 import 'package:amazon_clone_flutter/pages/Profile/screens/profile.dart';
 import 'package:amazon_clone_flutter/pages/Cart/screens/cart_page.dart';
 import 'package:amazon_clone_flutter/pages/more_bottom_sheet.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/screens/home_screen_page.dart';
 import 'package:amazon_clone_flutter/pages/Profile/screens/sample.dart';
-import 'package:amazon_clone_flutter/pages/homeScreen/screens/product_page.dart';
-import 'package:amazon_clone_flutter/products/screens/all_products.dart';
 import 'package:amazon_clone_flutter/provider/user_provider.dart';
-import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +38,6 @@ class MyApp extends StatelessWidget {
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
-
   @override
   State<MainPage> createState() => _MainPageState();
 }
@@ -55,14 +50,10 @@ class _MainPageState extends State<MainPage> {
     _pagecontroller=PageController();
     return Scaffold(
       body: PageView(
-
         controller: _pagecontroller,
         physics: const NeverScrollableScrollPhysics(),
         children: const [
-         // ProductPage(productId: "productId"),
-           HomepageScreen(),
-         //  SignInPage(),
-        //  AllProducts(),
+          HomepageScreen(),
           OptionalBottomSheet(),
           UserProfile(),
           CartPage()
@@ -72,7 +63,7 @@ class _MainPageState extends State<MainPage> {
         type: BottomNavigationBarType.fixed,
         useLegacyColorScheme: false,
         backgroundColor:const Color(0xFF09073B),
-        currentIndex: _pageIndex,
+        currentIndex:_pageIndex,
         landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
         elevation: 12,
         enableFeedback: true,
