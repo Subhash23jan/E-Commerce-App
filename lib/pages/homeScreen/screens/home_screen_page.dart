@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:amazon_clone_flutter/constants/global_variables.dart';
 import 'package:amazon_clone_flutter/constants/utils.dart';
 import 'package:amazon_clone_flutter/products/product_page.dart';
@@ -21,6 +23,8 @@ class HomepageScreen extends StatefulWidget {
 
 class _HomepageScreenState extends State<HomepageScreen> {
   final searchController=TextEditingController();
+  bool _isDoubleClicked = false;
+  final int _doubleClickInterval = 2000;
   late   Size? _size;
   @override
   Widget build(BuildContext context) {
@@ -82,28 +86,31 @@ class _HomepageScreenState extends State<HomepageScreen> {
             )
         ),
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children:  [
-             addressBox(),
-            const TopAccessories(),
-             InkWell(
-               onTap: () {
-                 Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductPage(productId: "653df7a39f565b003158d274"),));
-               },
-                 child: const TopDeals()),
-            const DealOfTheDay(),
-            const CarouselItems(),
-            Container(
-              margin: const EdgeInsets.only(top: 18,left: 22),
-              alignment:Alignment.centerLeft,
-              child: Text("More options",
-                  style: GoogleFonts.aBeeZee(color: Colors.black87,fontSize: 17.5,fontWeight: FontWeight.w700)),
-            ),
-            const MoreOptions(),
-            const SizedBox(height: 25,)
-          ],
+      body: WillPopScope(
+        onWillPop: () => _onWillPop(),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children:  [
+               addressBox(),
+              const TopAccessories(),
+               InkWell(
+                 onTap: () {
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => const ProductPage(productId: "653df7a39f565b003158d274"),));
+                 },
+                   child: const TopDeals()),
+              const DealOfTheDay(),
+              const CarouselItems(),
+              Container(
+                margin: const EdgeInsets.only(top: 18,left: 22),
+                alignment:Alignment.centerLeft,
+                child: Text("More options",
+                    style: GoogleFonts.aBeeZee(color: Colors.black87,fontSize: 17.5,fontWeight: FontWeight.w700)),
+              ),
+              const MoreOptions(),
+              const SizedBox(height: 25,)
+            ],
+          ),
         ),
       ),
       floatingActionButton:FloatingActionButton(
@@ -114,6 +121,20 @@ class _HomepageScreenState extends State<HomepageScreen> {
           },child: ClipRRect(
         borderRadius: BorderRadius.circular(50),
           child: Image.network("https://cdn.icon-icons.com/icons2/2108/PNG/512/amazon_alexa_icon_130998.png",width: 120,height: 120,)), ),
+
     );
+  }
+  Future<bool> _onWillPop() async {
+    showSnackBar("press again to exit", context);
+    if (_isDoubleClicked) {
+      return true; // Allow exiting the app
+    }
+
+    // Set a flag for double-click within the specified interval
+    _isDoubleClicked = true;
+    Timer(Duration(milliseconds: _doubleClickInterval), () {
+      _isDoubleClicked = false;
+    });
+    return false; // Prevent exiting the app
   }
 }

@@ -101,6 +101,7 @@ class _AllProductsState extends State<AllProducts> {
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
+                  physics: const ScrollPhysics(),
                   itemCount: widget.productType.length,
                   itemBuilder: (context, index1){
                     Future<List<ProductModel>> list;

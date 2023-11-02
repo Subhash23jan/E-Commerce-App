@@ -4,9 +4,12 @@ import 'dart:convert';
 
 import 'package:amazon_clone_flutter/main.dart';
 import 'package:amazon_clone_flutter/models/cartItem.dart';
+import 'package:amazon_clone_flutter/models/favourites_model.dart';
 import 'package:amazon_clone_flutter/models/user_model.dart';
 import 'package:amazon_clone_flutter/pages/Cart/widgets/cart_items.dart';
+import 'package:amazon_clone_flutter/pages/favourites_page.dart';
 import 'package:amazon_clone_flutter/pages/homeScreen/widgets/addressBox.dart';
+import 'package:amazon_clone_flutter/pages/order_checkout.dart';
 
 import 'package:amazon_clone_flutter/provider/user_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,6 +26,7 @@ import '../../../constants/global_variables.dart';
 import '../../../constants/utils.dart';
 import '../../../models/product_model.dart';
 import '../../../products/product_page.dart';
+import '../../../products/screens/all_products.dart';
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
 
@@ -100,11 +104,14 @@ class _CartPageState extends State<CartPage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8, left: 2),
                       child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-                            return const MainPage();
-                          },));
-                        },
+                          onTap: () {
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) {
+                                return const MainPage();
+                              },),
+                                  (route)=>false,
+                            );
+                          },
                         child: Image.asset(
                             "assets/images/amazon_in.png", height: 40),
                       ),
@@ -131,39 +138,56 @@ class _CartPageState extends State<CartPage> {
             ),
           )),
       body: ((cartItems.length!=products.length) || !isLoaded)?const Center(child: CircularProgressIndicator(color: Colors.grey,strokeWidth: 1,)):
-      SingleChildScrollView(
+      products.isEmpty? Container(
+          margin: const EdgeInsets.only(top: 15),
+          alignment: Alignment.center,
+          child:  Align(
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                 Text("Your Cart looks like an empty!!",style: GoogleFonts.aBeeZee(),),
+                ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 18,
+                      padding: const EdgeInsets.only(left: 5),
+                      fixedSize: const Size(220, 45),
+                      //  backgroundColor: Colors.redAccent
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FavouritesPage(),));
+                    }, icon: const Icon(CupertinoIcons.bag,color: Colors.redAccent,size: 24,),
+                    label:  Text("see your wishlist",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 19),)),
+              ],
+            ),
+          )
+      ):SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             addressBox(),
-            Padding(
-              padding: const EdgeInsets.only(left: 65.0, top: 10),
+            Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.only(top: 15),
               child: Text("Sub total : ₹$totalSum", style: GoogleFonts.aBeeZee(
                   fontSize: 16.5, fontWeight: FontWeight.w600),),
             ),
-            InkWell(
-              onTap: () {},
-              child: Align(
+            Container(
+                margin: const EdgeInsets.only(top: 10),
                 alignment: Alignment.center,
-                child: Container(
-                    margin: const EdgeInsets.only(top: 8, bottom: 12),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(33),
-                      color: Colors.yellowAccent.shade700,
+                child:  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 8,
+                      padding: const EdgeInsets.only(left: 5),
+                      fixedSize: const Size(180, 45),
+                        backgroundColor: Colors.yellowAccent.shade700
                     ),
-                    height: 45,
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.70,
-                    alignment: Alignment.center,
-                    child: Text("Proceed to Buy (1 item)",
-                      style: GoogleFonts.aBeeZee(color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),)
-                ),
-              ),
+                 child:Text(" Buy now (${products.length}) items",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 17,fontWeight: FontWeight.bold,),textAlign: TextAlign.center),
+                  onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  OrderCheckOut(cartItems:cartItems, products:products,),));
+                  },)
             ),
             // ElevatedButton(onPressed: (){},
             //     child: Text("Deselect all items",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.bold,color: Colors.blue.shade700,fontSize: 14),)),
@@ -181,19 +205,23 @@ class _CartPageState extends State<CartPage> {
           ],
         ),
       ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton.extended(
-          shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-          icon:  const Icon(FontAwesomeIcons.road,color: Colors.yellowAccent,size: 22,),
+          shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(55)),
+          icon: const Icon(CupertinoIcons.home,color: Colors.yellowAccent,size: 20,),
           backgroundColor: Colors.redAccent,
-          elevation: 12,
+          elevation: 28,
           onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-              return const MainPage();
-            },));
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) {
+                return const MainPage();
+            },),
+              (route)=>false,
+            );
           }, label:Container(
             alignment: Alignment.center,
-            width: 105,
-            child: Text("Way to Home",style: GoogleFonts.aBeeZee(fontSize: 16,color: Colors.yellow,fontWeight:FontWeight.bold),)), ),
+            width: 88,
+            child: Text("Go to Home",style: GoogleFonts.aBeeZee(fontSize: 15,color: Colors.white),)), ),
     );
   }
 

@@ -1,11 +1,15 @@
 
+import 'dart:convert';
+
 import 'package:amazon_clone_flutter/models/cartItem.dart';
 import 'package:amazon_clone_flutter/models/product_model.dart';
 import 'package:amazon_clone_flutter/products/screens/all_products.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:http/http.dart' as http;
+import '../../../constants/error_handling.dart';
 import '../../../constants/global_variables.dart';
+import '../../../constants/utils.dart';
 import '../../../products/product_page.dart';
 Container cartProduct(  BuildContext context,ProductModel productModel,CartItem cartItem)
 {
@@ -40,8 +44,7 @@ Container cartProduct(  BuildContext context,ProductModel productModel,CartItem 
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(productModel.name,
-                    style: GoogleFonts.aBeeZee(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16,
-                    ),
+                    style: GoogleFonts.aBeeZee(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16,),
                     overflow: TextOverflow.ellipsis,
                     softWrap: true,
                     maxLines: 2, // Increase the maxLines to the number of lines you want to display
@@ -72,14 +75,28 @@ Container cartProduct(  BuildContext context,ProductModel productModel,CartItem 
               ),
               child: Row(
                 children: [
-                  Container(
-                    width: 50,
-                    height: 30,
-                    decoration:   const BoxDecoration(
-                        color: Colors.white70,
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(5),bottomLeft: Radius.circular(5))
+                  InkWell(
+                    onTap: () async {
+                      http.Response res=await http.put(
+                        Uri.parse('${uri}api/user/remove-cart'),
+                        headers: {'Content-Type': 'application/json'},
+                        body:jsonEncode(CartItem(1, cartItem.productId,cartItem.email)),
+                      );
+                      if(context.mounted){
+                        httpErrorHandle(res: res, context: context, onSuccess: () {
+                          showSnackBar(jsonDecode(res.body)['msg'], context);
+                        },);
+                      }
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 30,
+                      decoration:   const BoxDecoration(
+                          color: Colors.white70,
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(5),bottomLeft: Radius.circular(5))
+                      ),
+                      child: const Icon(Icons.remove_rounded,color: Colors.black87,size: 18,),
                     ),
-                    child: const Icon(Icons.remove_rounded,color: Colors.black87,size: 18,),
                   ),
                   Container(
                     width: 60,
@@ -91,37 +108,65 @@ Container cartProduct(  BuildContext context,ProductModel productModel,CartItem 
                     ),
                     child:  Text("${cartItem.quantity}",style: const TextStyle(fontSize: 18,fontWeight: FontWeight.w500),),
                   ),
-                  Container(
-                    width: 50,
-                    height: 30,
-                    decoration:const BoxDecoration(
-                        color: Colors.white70,
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(5),bottomRight: Radius.circular(5))
+                  InkWell(
+                    onTap: () async {
+                      http.Response res=await http.put(
+                        Uri.parse('${uri}api/user/add-cart'),
+                        headers: {'Content-Type': 'application/json'},
+                        body:jsonEncode(CartItem(1, cartItem.productId,cartItem.email)),
+                      );
+                      if(context.mounted){
+                        httpErrorHandle(res: res, context: context, onSuccess: () {
+                          showSnackBar(jsonDecode(res.body)['msg'], context);
+                        },);
+                      }
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 30,
+                      decoration:const BoxDecoration(
+                          color: Colors.white70,
+                          borderRadius: BorderRadius.only(topRight: Radius.circular(5),bottomRight: Radius.circular(5))
+                      ),
+                      child: const Icon(Icons.add,color: Colors.black87,size: 18,),
                     ),
-                    child: const Icon(Icons.add,color: Colors.black87,size: 18,),
                   ),
                 ],
               ),
             ),
             Row(
               children: [
-                Container(
-                  width: 80,
-                  height: 30,
-                  alignment: Alignment.center,
-                  decoration:    BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0, 2),
-                        blurRadius: 1.5,
-                        spreadRadius: 0.1,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(8),
+                InkWell(
+                  onTap: () async {
+                    http.Response res=await http.put(
+                      Uri.parse('${uri}api/user/remove-cart'),
+                      headers: {'Content-Type': 'application/json'},
+                      body:jsonEncode(cartItem),
+                    );
+                    if(context.mounted){
+                      httpErrorHandle(res: res, context: context, onSuccess: () {
+                        showSnackBar(jsonDecode(res.body)['msg'], context);
+                      },);
+                    }
+                  },
+                  child: Container(
+                    width: 80,
+                    height: 30,
+                    alignment: Alignment.center,
+                    decoration:    BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0, 2),
+                          blurRadius: 1.5,
+                          spreadRadius: 0.1,
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child:  Text("Delete",style: GoogleFonts.aBeeZee(fontSize: 14,fontWeight: FontWeight.w700),),
                   ),
-                  child:  Text("Delete",style: GoogleFonts.aBeeZee(fontSize: 14,fontWeight: FontWeight.w700),),
                 ),
                 const SizedBox(width: 5,),
                 Container(
