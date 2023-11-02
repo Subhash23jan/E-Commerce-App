@@ -3,6 +3,7 @@ const userRouter = express.Router();
 const Order = require('../models/order');
 const User = require('../models/user');
 const { compareSync } = require("bcrypt");
+const productModel = require("../models/product");
 
 userRouter.post('/api/user/update/password', async (req, res) => {
 
@@ -40,11 +41,13 @@ userRouter.post('/api/user/update/address', async (req, res) => {
         return res.status(500).json({ msg: 'something went wrong!!' });
     }
 });
+
+//to add to cart
 userRouter.put('/api/user/add-cart', async (req, res) => {
     const { email, productId, quantity } = req.body;
     const parsedQuantity = parseInt(quantity);
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({email:{$regex:email,$options:"i"}});
         console.log(productId);
     if (!user) {
       return res.status(400).json({ msg: 'User not found!!!' });
@@ -69,13 +72,47 @@ userRouter.put('/api/user/add-cart', async (req, res) => {
     return res.status(500).json({ msg: 'Internal Server Error' });
   }
 });
+//remove from the cart
+userRouter.put('/api/user/remove-cart', async (req, res) => {
+    const { email, productId, quantity } = req.body;
+    const parsedQuantity = parseInt(quantity);
+    try {
+        const user = await User.findOne({email:{$regex:email,$options:"i"}});
+        console.log(productId);
+    if (!user) {
+      return res.status(400).json({ msg: 'User not found!!!' });
+    }
+    let cart = user.cart;
+    const index = cart.findIndex(cartItem => cartItem.productId === productId);
 
+    if (index === -1) {
+        return res.status(400).json({ msg: 'something went wrong' });
+    } else {
+        console.log(quantity);
+        cart[index].quantity = parseInt(cart[index].quantity) - parsedQuantity;
+        if (parseInt(cart[index].quantity) <= 0)
+        {
+            cart.splice(index, 1);
+            user.cart = cart;
+            await user.save();
+            return res.json({ msg: 'deleted from the cart...' });
+        }  
+    }
+    user.cart = cart;
+    await user.save();
+    return res.json({ msg: 'removed from the cart...' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: 'Internal Server Error' });
+  }
+});   
 
 //to add to favourites
 userRouter.put('/api/user/add-favourite', async (req, res) => {
-    const { email, productId, quantity } = req.body;
+    const { email, productId } = req.body;
     try {
-        const user = await User.findOne({ email });
+        console.log(email);
+        const user = await User.findOne({ email: { $regex: email, $options: "i" } });
         if (!user) {
            return res.status(400).json({ msg: 'User not found!!!' });
         }
@@ -83,14 +120,14 @@ userRouter.put('/api/user/add-favourite', async (req, res) => {
         const index = favourites.findIndex(favouriteItem => favouriteItem.productId == productId);
         if (index == -1)
             favourites.push({
-                productId, quantity
+                productId
             });
         else {
              return res.json({ msg: 'Item is already in favourite list ...' });
         }
         user.favourites = favourites;
         await user.save();
-        return res.json({ msg: 'Added to favourites...' });
+        return res.json({ msg: 'Added to wishlist...' });
 
     } catch (e)
     {
@@ -103,9 +140,9 @@ userRouter.put('/api/user/add-favourite', async (req, res) => {
 
 //remove from favourites
 userRouter.put("/api/user/remove-favourite", async (req, res) => {
-    const { email, productId, quantity } = req.body;
+    const { email, productId } = req.body;
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({email:{$regex:email,$options:"i"}});
         if (!user) {
            return res.status(400).json({ msg: 'User not found!!!' });
         }
@@ -142,8 +179,10 @@ userRouter.get('/api/user/cart',async(req, res) => {
 
 //to get favourites / wish-list items
 userRouter.get('/api/user/favourites', async (req, res) => {
-    const { email } = req.body;
-    const user = await User.findOne({email});
+    const email = req.header('email');
+    console.log(email);
+  const user = await User.findOne({email:{$regex:email,$options:"i"}});
+   //  console.log(user);
     if (user == null)
         return res.status(500).json({ msg: 'no user exists' });
     return res.json({ favourites: user.favourites });
@@ -151,33 +190,60 @@ userRouter.get('/api/user/favourites', async (req, res) => {
 
 //to place order
 userRouter.post('/api/user/order-checkout', async (req, res) => {
-    const { email, products } = req.body;
-    
-    const order = new Order(
-       { products:products}
-    );
-    const result=await order.save();
-    if (result != null) {
-        User.findOne({email}).then((user) => {
-            if (user == null) {
-                return res.status(404).json({ msg: 'No user exists!!??' });
+    const productArr = req.body.products;
+    console.log(productArr);
+    const email = req.header('email');
+    let products = [];
+    if (productArr != null) {
+        try {
+            for (const val of productArr) {
+                const productId = val.productId;
+                const quantity = val.quantity;
+                const price = val.price;
+                //  console.log(price);
+                if (price != null) {
+                    products.push({
+                        productId,
+                        quantity,
+                        price
+                    });
+                }
             }
-            //console.log(order._id);
-            user.orders.push({"orderId": order._id });
-            //console.log(user.orders);
-            return user.save();
-        }).then(() => {
-             return res.json({ msg: 'order placed successfully!!!!' });
-        }).catch((err) => {
+         //   console.log(products);
+            const order = new Order({products});
+            console.log(order);
+            const result = await order.save();
+
+            if (result != null) {
+                const user = await User.findOne({
+                    email: {
+                        $regex: email,
+                        $options:'i'
+                } });
+
+                if (user == null) {
+                    return res.status(404).json({ msg: 'No user exists!!??' });
+                }
+
+                user.orders.push({ orderId: order._id });
+                await user.save();
+                return res.json({ msg: 'Order placed successfully!!!!' });
+            } else {
+                return res.status(404).json({ msg: 'Something went wrong' });
+            }
+        } catch (err) {
             console.error(err);
             return res.status(404).json({ msg: 'Something went wrong' });
-        });
+        }
+    } else {
+        return res.status(404).json({ msg: 'Cart is Empty' });
     }
 });
+
 //to get order history
-userRouter.get('/api/user/order-history', async (req, res) => {
-    const { email } = req.body;
-    const user = await User.findOne({email});
+userRouter.get('/api/user/orders', async (req, res) => {
+    const email  = req.header('email');
+    const user = await User.findOne({email: {$regex: email,$options:'i'} });
     if (user == null)
         return res.status(500).json({ msg: 'no user exists' });
     return res.json({ orders: user.orders });

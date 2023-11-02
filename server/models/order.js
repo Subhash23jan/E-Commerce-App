@@ -13,6 +13,9 @@ const orderSchema = new mongoose.Schema({
                 type: Number,
                 default:1,
             },
+            price: {
+                
+            },
             _id:false,
         }
     ],

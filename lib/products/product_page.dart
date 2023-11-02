@@ -4,11 +4,11 @@ import 'package:amazon_clone_flutter/constants/error_handling.dart';
 import 'package:amazon_clone_flutter/constants/utils.dart';
 import 'package:amazon_clone_flutter/flutter_classes/rate_classes.dart';
 import 'package:amazon_clone_flutter/flutter_classes/size_classes.dart';
-import 'package:amazon_clone_flutter/main.dart';
 import 'package:amazon_clone_flutter/models/cartItem.dart';
 import 'package:amazon_clone_flutter/models/product_model.dart';
 import 'package:amazon_clone_flutter/models/user_model.dart';
 import 'package:amazon_clone_flutter/pages/Cart/screens/cart_page.dart';
+import 'package:amazon_clone_flutter/pages/order_checkout.dart';
 import 'package:amazon_clone_flutter/provider/user_provider.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +20,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/global_variables.dart';
+import '../models/favourites_model.dart';
 import 'widgets/product_widget.dart';
 
 class ProductPage extends StatefulWidget {
@@ -59,19 +60,20 @@ class _ProductPageState extends State<ProductPage> {
     _user=Provider.of<UserProvider>(context).user;
     selectedValue=quantity.toString();
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
-        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        icon: const Icon(CupertinoIcons.cart,color: Colors.yellowAccent,size: 23,),
-        backgroundColor: Colors.redAccent,
-        elevation: 12,
+        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(55)),
+        icon: const Icon(CupertinoIcons.cart,color: Colors.yellowAccent,size: 20,),
+        backgroundColor: Colors.black87,
+        elevation: 28,
         onPressed: () {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             return const CartPage();
           },));
       }, label:Container(
         alignment: Alignment.center,
-          width: 100,
-          child: Text("Way to Cart",style: GoogleFonts.aBeeZee(fontSize: 17,color: Colors.yellow,fontWeight:FontWeight.bold),)), ),
+          width: 88,
+          child: Text("Way to Cart",style: GoogleFonts.aBeeZee(fontSize: 15,color: Colors.cyan,fontWeight:FontWeight.bold,),)), ),
       appBar: PreferredSize(
         preferredSize:const Size.fromHeight(76),
         child: Container(
@@ -161,14 +163,15 @@ class _ProductPageState extends State<ProductPage> {
                         child: Image.network(productModel!.url,height: 250,width: MediaQuery.of(context).size.width*0.75,fit: BoxFit.fill,)),
                 ),
                   ),
-                  const Positioned(
-                      right: 1.1,
+                   Positioned(
+                      right:8.1,
                       top: 1,
-                      child: Icon(CupertinoIcons.share,size: 26,color: Colors.black,)),
-                  const Positioned(
-                      bottom: 9,
-                      left: 1,
-                      child: Icon(Icons.favorite_outline,size:26 ,)),
+                      child: InkWell(
+                        onTap: (){
+                          showSnackBar("work madbeku wait madro pls!!🥲", context);
+                        },
+                          child: const Icon(CupertinoIcons.share,size: 26,color: Colors.black,))),
+
                 ],
               ),
               const SizedBox(
@@ -210,55 +213,75 @@ class _ProductPageState extends State<ProductPage> {
               const SizedBox(
                 height: 10,
               ),
-              selectItemCount(context),
-              Align(
-                alignment: Alignment.center,
-                child: InkWell(
-                  onTap: () async {
-                    print(quantity);
-                    CartItem item=CartItem(quantity,widget.productId,_user!.email);
-                    if (kDebugMode) {
-                      print(_user!.email);
-                    }
-                    http.Response res=await http.put(
-                        Uri.parse('${uri}api/user/add-cart'),
-                      headers: {'Content-Type': 'application/json'},
-                      body:jsonEncode(item),
-                    );
-                    if(context.mounted){
-                      httpErrorHandle(res: res, context: context, onSuccess: () {
-                        quantity=1;
-                        showSnackBar(jsonDecode(res.body)['msg'], context);
-                        setState(() {});
-                      },);
-                    }
-                  },
-                  child: Container(
-                      margin: const EdgeInsets.only(top: 25,bottom: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(33),
-                        color: Colors.yellow.shade900,
-                      ),
-                      height: 45,
-                      width: MediaQuery.of(context).size.width*0.70,
-                      alignment: Alignment.center,
-                      child:Text("Add to Cart",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 16.5,fontWeight: FontWeight.bold),)
-                  ),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  selectItemCount(context),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 15,
+                       fixedSize: const Size(110, 45),
+                        backgroundColor: Colors.redAccent),
+                      onPressed: () async {
+                          http.Response response= await http.put(
+                              Uri.parse('${uri}api/user/add-favourite'),
+                              headers: {'Content-Type': 'application/json'},
+                              body: jsonEncode(Favourites(_user?.email,widget.productId))
+                          );
+                          if(context.mounted){
+                            httpErrorHandle(res: response, context: context, onSuccess: () async {
+                              showSnackBar(jsonDecode(response.body)['msg'], context);
+                            },);
+                          }
+                  }, icon: const Icon(CupertinoIcons.bag,color: Colors.yellowAccent,size: 18,), label:  Text(" Add to Wishlist",style: GoogleFonts.aBeeZee(color: Colors.white,fontSize: 11,fontWeight: FontWeight.bold),))
+                ],
               ),
-              Align(
+              Container(
+                margin: const EdgeInsets.only(top: 15,bottom: 5),
                 alignment: Alignment.center,
-                child: Container(
-                    margin: const EdgeInsets.only(top: 8,bottom: 25),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(33),
-                      color: Colors.yellowAccent.shade700,
+                child:  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      elevation: 8,
+                        padding: const EdgeInsets.only(left: 5),
+                        fixedSize: const Size(180, 45),
+                      //  backgroundColor: Colors.redAccent
                     ),
-                    height: 45,
-                    width: MediaQuery.of(context).size.width*0.70,
-                    alignment: Alignment.center,
-                    child:Text("Buy it Now",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 16.5,fontWeight: FontWeight.bold),)
-                ),
+                    onPressed: () async {
+                      CartItem item=CartItem(quantity,widget.productId,_user!.email);
+                      if (kDebugMode) {
+                        print(_user!.email);
+                      }
+                      http.Response res=await http.put(
+                        Uri.parse('${uri}api/user/add-cart'),
+                        headers: {'Content-Type': 'application/json'},
+                        body:jsonEncode(item),
+                      );
+                      if(context.mounted){
+                        httpErrorHandle(res: res, context: context, onSuccess: () {
+                          quantity=1;
+                          showSnackBar(jsonDecode(res.body)['msg'], context);
+                          setState(() {});
+                        },);
+                      }
+                    }, icon: const Icon(CupertinoIcons.cart,color: Colors.redAccent,size: 22,), label:  Text(" Add to Cart",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 17,fontWeight: FontWeight.bold),))
+              ),
+              Container(
+                  margin: const EdgeInsets.only(top:5,bottom: 15),
+                  alignment: Alignment.center,
+                  child:  ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 8,
+                          padding: const EdgeInsets.only(left: 5),
+                          fixedSize: const Size(180, 45),
+                          backgroundColor: Colors.yellowAccent.shade700),
+                      onPressed: () async {
+                        if(productModel!=null){
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => OrderCheckOut(cartItems:[CartItem(quantity,widget.productId,_user!.email)],
+                                products:[ProductModel(id: productModel!.id, name: productModel!.name, url: productModel!.url, productType:productModel!.productType
+                                    , price: productModel!.price)] ),));
+                        }
+                      }, icon: const Icon(Icons.money,color: Colors.black,size: 22,), label:  Text(" Buy it Now",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 17,fontWeight: FontWeight.bold),))
               ),
               Container(
                 height: 2,
@@ -275,7 +298,7 @@ class _ProductPageState extends State<ProductPage> {
                 width:((170*recommended.length)+10).toDouble(),
                 child:ListView.separated(
                   shrinkWrap:false,
-                  physics:  ScrollPhysics(),
+                  physics:  const ScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: recommended.length,
                   separatorBuilder: (BuildContext context, int index) {
@@ -309,7 +332,6 @@ class _ProductPageState extends State<ProductPage> {
 
   Future<List<ProductModel>> getRecommended(List<String> productType) async{
     List<ProductModel>list=[];
-    print(productType);
     Map<String, dynamic> jsonMap = {'productType': productType};
     String jsonBody = json.encode(jsonMap); // Convert the JSON object to a string
     http.Response  res = await http.post(
@@ -335,7 +357,7 @@ class _ProductPageState extends State<ProductPage> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2<String>(
 
-        hint: Text("1"),
+        hint: const Text("1"),
 
         items: items
             .map((String item) => DropdownMenuItem<String>(
@@ -360,7 +382,7 @@ class _ProductPageState extends State<ProductPage> {
         },
         buttonStyleData: ButtonStyleData(
           height: 45,
-          width: 85,
+          width: 95,
           padding: const EdgeInsets.only(left: 14, right: 14),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
@@ -369,7 +391,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
             color: Colors.redAccent,
           ),
-          elevation: 2,
+          elevation: 8,
         ),
         iconStyleData: const IconStyleData(
           icon: Icon(
