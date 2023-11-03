@@ -87,7 +87,7 @@ class _UserProfileState extends State<UserProfile> {
                   ]
                 )),
               ),
-              const Options(),
+               Options(),
               const YourOrders(),
               const YourLists(),
               const YourAccount(),

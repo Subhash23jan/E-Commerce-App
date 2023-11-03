@@ -7,7 +7,7 @@ const productRouter = require('./server/routes/product_router');
 const DB='mongodb+srv://subhash613d:subhash123@cluster0.wgtypza.mongodb.net/?retryWrites=true&w=majority';
 console.log("subhash");
 const app=express();
-const PORT=process.env.PORT || 3000;
+const PORT=3000;
 app.set("connection", "close");
 app.use(express.json());
 app.use(authRouter);

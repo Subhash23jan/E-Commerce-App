@@ -1,5 +1,6 @@
 import 'package:amazon_clone_flutter/constants/global_variables.dart';
 import 'package:amazon_clone_flutter/pages/favourites_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 class Options extends StatefulWidget {
@@ -20,7 +21,11 @@ class _OptionsState extends State<Options> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+              ElevatedButton(onPressed: (){
+                if (kDebugMode) {
+                  print('clicked');
+                }
+              },style: ElevatedButton.styleFrom(
                 elevation: 5,backgroundColor:Colors.white,
                   fixedSize: const Size(150, 45),
                   shape:RoundedRectangleBorder(

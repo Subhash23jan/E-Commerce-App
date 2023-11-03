@@ -76,7 +76,8 @@ userRouter.put('/api/user/add-cart', async (req, res) => {
 userRouter.put('/api/user/remove-cart', async (req, res) => {
     const { email, productId, quantity } = req.body;
     const parsedQuantity = parseInt(quantity);
-    try {
+    if (email != null && productId != null && quantity != null) {
+          try {
         const user = await User.findOne({email:{$regex:email,$options:"i"}});
         console.log(productId);
     if (!user) {
@@ -105,6 +106,9 @@ userRouter.put('/api/user/remove-cart', async (req, res) => {
     console.error(error);
     return res.status(500).json({ msg: 'Internal Server Error' });
   }
+    } else {
+        return res.status(500).json({ msg: 'Invalid body!!' });
+     }
 });   
 
 //to add to favourites
@@ -246,7 +250,8 @@ userRouter.get('/api/user/orders', async (req, res) => {
     const user = await User.findOne({email: {$regex: email,$options:'i'} });
     if (user == null)
         return res.status(500).json({ msg: 'no user exists' });
-    return res.json({ orders: user.orders });
+    const orders = user.orders.slice().reverse();
+    return res.json({ orders:orders });
     
 });
 
