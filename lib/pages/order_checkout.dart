@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:amazon_clone_flutter/constants/error_handling.dart';
 import 'package:amazon_clone_flutter/constants/utils.dart';
 import 'package:amazon_clone_flutter/models/user_model.dart';
+import 'package:amazon_clone_flutter/pages/order_history.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -68,7 +69,9 @@ class _OrderCheckOutState extends State<OrderCheckOut> {
                 backgroundColor: Colors.redAccent
             ),
             child:Text("View My orders",style: GoogleFonts.aBeeZee(color: Colors.white,fontSize: 17,fontWeight: FontWeight.bold,),textAlign: TextAlign.center),
-            onPressed: (){}
+            onPressed: (){
+             Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  MyOrders(user:UserModel(id: _user!.id, name: _user!.name, email: _user!.email, password: _user!.password, address: _user!.address, userType: _user!.userType)),));
+            }
           )
       ):SingleChildScrollView(
         scrollDirection: Axis.vertical,
