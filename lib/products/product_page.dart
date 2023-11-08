@@ -56,6 +56,12 @@ class _ProductPageState extends State<ProductPage> {
     getProduct(widget.productId);
   }
   @override
+  void dispose() {
+    // TODO: implement dispose
+    searchController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     _user=Provider.of<UserProvider>(context).user;
     selectedValue=quantity.toString();

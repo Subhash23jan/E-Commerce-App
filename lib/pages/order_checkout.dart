@@ -42,9 +42,9 @@ class _OrderCheckOutState extends State<OrderCheckOut> {
     _user = Provider.of<UserProvider>(context, listen: false).user;
     return Scaffold(
       appBar: AppBar(
-        title: Text("order-checkout",style: GoogleFonts.sansita(color: Colors.white),),
+        title: Text("order-checkout",style: GoogleFonts.aBeeZee(color: Colors.white,fontSize: 18),),
         // centerTitle: true,
-        backgroundColor: Colors.redAccent,
+        backgroundColor:Colors.black,
       ),
       body: isOrderPlacing?Container(
         alignment: Alignment.center,
@@ -91,22 +91,31 @@ class _OrderCheckOutState extends State<OrderCheckOut> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Card(
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
                       child: Image.network(widget.products[index].url,
                       width: MediaQuery.sizeOf(context).width*0.4,height: 190,fit: BoxFit.fill,),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 5,),
-                        Text(toBeginningOfSentenceCase(widget.products[index].name)??widget.products[index].name,style: GoogleFonts.aboreto(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.cyan),overflow: TextOverflow.ellipsis,maxLines: 2,),
-                        Text("price:₹${widget.products[index].price}",style: GoogleFonts.aboreto(),overflow: TextOverflow.ellipsis,maxLines: 1,),
-                        Text("quantity:${widget.cartItems[index].quantity}",style: GoogleFonts.aboreto(),overflow: TextOverflow.ellipsis,maxLines: 1,),
-                        Text("total:₹${widget.cartItems[index].quantity*widget.products[index].price}",style: GoogleFonts.aboreto(fontWeight: FontWeight.w600),overflow: TextOverflow.ellipsis,maxLines: 1,),
-                        const SizedBox(height: 5,),
-                      ],
+                    const SizedBox(
+                      width: 30,
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 5,),
+                          Text(toBeginningOfSentenceCase(widget.products[index].name)??widget.products[index].name,style: GoogleFonts.aBeeZee(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.cyan),overflow: TextOverflow.ellipsis,maxLines: 1,),
+                          Text("price:₹${widget.products[index].price}",style: GoogleFonts.aBeeZee(),overflow: TextOverflow.ellipsis,maxLines: 1,),
+                          Text("quantity:${widget.cartItems[index].quantity}",style: GoogleFonts.aBeeZee(),overflow: TextOverflow.ellipsis,maxLines: 1,),
+                          Text("total:₹${widget.cartItems[index].quantity*widget.products[index].price}",style: GoogleFonts.aBeeZee(fontWeight: FontWeight.w600),overflow: TextOverflow.ellipsis,maxLines: 1,),
+                          const SizedBox(height: 5,),
+                        ],
+                      ),
                     ),
                   ],
                 ),
