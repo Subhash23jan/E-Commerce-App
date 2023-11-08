@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:amazon_clone_flutter/models/order_model.dart';
 import 'package:amazon_clone_flutter/models/order_product.dart';
 import 'package:amazon_clone_flutter/pages/order_history.dart';
+import 'package:amazon_clone_flutter/products/product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
@@ -32,8 +33,8 @@ class _ShowOrderDetailsState extends State<ShowOrderDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("View Your Order",style: GoogleFonts.sansita(color: Colors.white),),
-        backgroundColor: Colors.redAccent,
+        title: Text("View Your Order",style: GoogleFonts.aBeeZee(color: Colors.white,fontSize: 19),),
+        backgroundColor: GlobalVariables.secondaryColor,
       ),
       body:(products.isEmpty)?const Center(child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,),)
           : Column(
@@ -41,7 +42,7 @@ class _ShowOrderDetailsState extends State<ShowOrderDetails> {
               ListView.builder(
         shrinkWrap: true,
         itemCount:widget.order.products.length,
-        physics: const ScrollPhysics(),
+        physics:const PageScrollPhysics(),
         itemBuilder: (context, index) {
               return Container(
                 margin: const EdgeInsets.only(top: 5),
@@ -52,10 +53,13 @@ class _ShowOrderDetailsState extends State<ShowOrderDetails> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.network(products[index].url,
-                        width: MediaQuery.sizeOf(context).width*0.4,height: 190,fit: BoxFit.fill,),
+                    InkWell(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(products[index].url,
+                          width: MediaQuery.sizeOf(context).width*0.4,height: 190,fit: BoxFit.fill,),
+                      ),
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductPage(productId: products[index].id),)),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

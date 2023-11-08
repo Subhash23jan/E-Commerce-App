@@ -39,13 +39,15 @@ class _MyOrdersState extends State<MyOrders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text("Your Orders",style: GoogleFonts.sansita(color: Colors.white),),
+
+        title: Text("Your Orders",style: GoogleFonts.aBeeZee(color: Colors.white),),
         // centerTitle: true,
-        backgroundColor: Colors.redAccent,
+        backgroundColor:GlobalVariables.secondaryColor,
       ),
       body:(isLoading)?const Center(child: CircularProgressIndicator(color: Colors.blue,strokeWidth: 2,),):
-      (orders.isEmpty)?Container(
+      (orders.isEmpty && orders.length==orderList.length)?Container(
           margin: const EdgeInsets.only(top: 15),
           alignment: Alignment.center,
           child:  Align(
@@ -72,19 +74,25 @@ class _MyOrdersState extends State<MyOrders> {
         itemCount: orders.length,
         shrinkWrap: true,
         itemBuilder:(context, index) {
-          return InkWell(
-            onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ShowOrderDetails(order:orders[index]),));
-            },
-            child: Container(
-              margin: const EdgeInsets.only(top: 5,bottom: 5,left: 20,right: 20),
-              height: 100,
-              decoration: BoxDecoration(
-                color: GlobalVariables.greyBackgroundColor,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.black,width: 2)
+          return Container(
+            margin: const EdgeInsets.only(top: 5,bottom: 5,left: 10,right: 10),
+            height: 100,
+            child: ElevatedButton.icon(
+
+              style: ElevatedButton.styleFrom(
+                textStyle: const TextStyle(),
+                elevation: 8,
+                alignment: Alignment.center,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
+                shadowColor: Colors.white,
+                side:  BorderSide(width: 1,style: BorderStyle.solid)
               ),
-              child: Row(
+
+              onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ShowOrderDetails(order:orders[index]),));
+              },
+              icon: const Icon(Icons.border_bottom_sharp),
+              label: Row(
                 children: [
                   const SizedBox(width: 30,),
                   Column(
@@ -94,10 +102,10 @@ class _MyOrdersState extends State<MyOrders> {
                       RichText(
                         text: TextSpan(
                           children:[  TextSpan(
-                            style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 19),
+                            style: GoogleFonts.aBeeZee(color:Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
                             text: "Order-Id : "
                           ),TextSpan(
-                              style: GoogleFonts.aBeeZee(color: Colors.black),
+                              style: GoogleFonts.aBeeZee(color:Colors.black,),
                               text: orders[index].orderId
                           )]
                         ),
@@ -105,11 +113,11 @@ class _MyOrdersState extends State<MyOrders> {
                       RichText(
                         text: TextSpan(
                             children:[  TextSpan(
-                                style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 19),
+                                style: GoogleFonts.aBeeZee(color:Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
                                 text: "Date : "
                             ),
                               TextSpan(
-                                style: GoogleFonts.aBeeZee(color: Colors.black),
+                                style: GoogleFonts.aBeeZee(color:Colors.black,),
                                 text: DateFormat('EEEE , dd MMMM ').format(orders[index].date)
                             ),
                               TextSpan(
@@ -122,10 +130,10 @@ class _MyOrdersState extends State<MyOrders> {
                       RichText(
                         text: TextSpan(
                             children:[  TextSpan(
-                                style: GoogleFonts.aBeeZee(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),
+                                style: GoogleFonts.aBeeZee(color:Colors.black,fontWeight: FontWeight.bold,fontSize: 14),
                                 text: "Number Of Products : "
                             ),TextSpan(
-                                style: GoogleFonts.aBeeZee(color: Colors.black),
+                                style: GoogleFonts.aBeeZee(color:Colors.black,),
                                 text: orders[index].products.length.toString()
                             )]
                         ),

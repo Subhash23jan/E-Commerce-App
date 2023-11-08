@@ -1,16 +1,87 @@
 import 'package:amazon_clone_flutter/constants/global_variables.dart';
+import 'package:amazon_clone_flutter/pages/order_history.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../../../constants/utils.dart';
 import '../../../models/user_model.dart';
 import '../../../provider/user_provider.dart';
+import '../../favourites_page.dart';
 import '../widgets/buy_again.dart';
 import '../widgets/options.dart';
 import '../widgets/orders.dart';
 import '../widgets/your_account.dart';
 import '../widgets/your_lists.dart';
 
+class ProfileOptions{
+  final BuildContext context;
+  final UserModel _user;
+
+  ProfileOptions(this.context,this._user);
+
+  Widget options(){
+    return Container(
+      padding: const EdgeInsets.only(top: 12),
+      color: GlobalVariables.backgroundColor,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(onPressed: (){
+                if (kDebugMode) {
+                  print('clicked');
+                }
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) =>MyOrders(user: _user),));
+              },style: ElevatedButton.styleFrom(
+                  elevation: 5,backgroundColor:Colors.white,
+                  fixedSize: const Size(150, 45),
+                  shape:RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.black54,width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  )
+              ), child:Text("Your Orders",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 15),),),
+              ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+                  elevation: 5,backgroundColor:Colors.white70,
+                  fixedSize: const Size(150, 45),
+                  shape:RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.black54,width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  )
+              ), child:Text("Buy Again",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 15),),),          ],
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(onPressed: (){},style: ElevatedButton.styleFrom(
+                  elevation: 5,backgroundColor:Colors.white70,
+                  fixedSize: const Size(150, 45),
+                  shape:RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.black54,width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  )
+              ), child:Text("Your Account",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 15),),),
+              ElevatedButton(onPressed: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const FavouritesPage(),));
+              },style: ElevatedButton.styleFrom(
+                  elevation: 5,backgroundColor:Colors.white70,
+                  fixedSize: const Size(150, 45),
+                  shape:RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.black54,width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  )
+              ), child:Text("Your Wishlist",style: GoogleFonts.aBeeZee(color: Colors.black,fontSize: 15),),),          ],
+          ),
+        ],
+      ),
+    );
+  }
+}
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
 
@@ -87,7 +158,7 @@ class _UserProfileState extends State<UserProfile> {
                   ]
                 )),
               ),
-               Options(),
+              ProfileOptions(context,_user!).options(),
               const YourOrders(),
               const YourLists(),
               const YourAccount(),
