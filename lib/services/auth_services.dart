@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:amazon_clone_flutter/main.dart';
 import 'package:amazon_clone_flutter/provider/user_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -50,6 +51,9 @@ class AuthService {
           });
     } catch (e) {
       showSnackBar(e.toString(), context);
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 
