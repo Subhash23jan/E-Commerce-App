@@ -41,7 +41,6 @@ class _MyOrdersState extends State<MyOrders> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-
         title: Text("Your Orders",style: GoogleFonts.aBeeZee(color: Colors.white),),
         // centerTitle: true,
         backgroundColor:GlobalVariables.secondaryColor,
@@ -85,7 +84,7 @@ class _MyOrdersState extends State<MyOrders> {
                 alignment: Alignment.center,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
                 shadowColor: Colors.white,
-                side:  BorderSide(width: 1,style: BorderStyle.solid)
+                side:  const BorderSide(width: 1,style: BorderStyle.solid)
               ),
 
               onPressed: (){

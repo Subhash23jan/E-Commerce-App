@@ -77,7 +77,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
                           ),
                         ),
                         prefixIcon:const Icon(Icons.search,color: Colors.grey,size: 26,),
-                        hintText: "Search in Amazon.in",
+                        hintText: "Search in our app",
                         hintStyle: TextStyle(color: Colors.black54,fontWeight: FontWeight.w500,fontSize: 14)
                     ),
                   ),
@@ -117,7 +117,7 @@ class _HomepageScreenState extends State<HomepageScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         elevation: 16,
           onPressed: (){
-          showSnackBar("sorry!! It is not real amazon app..🙅", context);
+          showSnackBar("sorry!! It is not real  app..🙅", context);
           },child: ClipRRect(
         borderRadius: BorderRadius.circular(50),
           child: Image.network("https://cdn.icon-icons.com/icons2/2108/PNG/512/amazon_alexa_icon_130998.png",width: 120,height: 120,)), ),

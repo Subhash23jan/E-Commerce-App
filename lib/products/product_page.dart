@@ -362,9 +362,7 @@ class _ProductPageState extends State<ProductPage> {
   DropdownButtonHideUnderline selectItemCount(BuildContext context){
     return DropdownButtonHideUnderline(
       child: DropdownButton2<String>(
-
         hint: const Text("1"),
-
         items: items
             .map((String item) => DropdownMenuItem<String>(
           value: item,

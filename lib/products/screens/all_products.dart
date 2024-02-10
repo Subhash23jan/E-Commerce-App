@@ -79,7 +79,7 @@ class _AllProductsState extends State<AllProducts> {
                             ),
                           ),
                           prefixIcon:const Icon(Icons.search,color: Colors.grey,size: 26,),
-                          hintText: "Search in Amazon.in",
+                          hintText: "Search in app",
                           hintStyle: const TextStyle(color: Colors.black54,fontWeight: FontWeight.w500,fontSize: 14)
                       ),
                     ),
